@@ -1,0 +1,204 @@
+/* Carte catégorie premium. */
+.category-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(219, 231, 243, 0.85);
+  border-radius: var(--radius-medium);
+  padding: 28px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition: 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet lumineux dans les catégories. */
+.category-card::before {
+  content: "";
+  width: 90px;
+  height: 90px;
+  right: -35px;
+  top: -35px;
+  position: absolute;
+  background: radial-gradient(circle, rgba(92, 200, 255, 0.35), transparent 70%);
+}
+
+/* Effet au survol catégorie. */
+.category-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(29, 111, 220, 0.28);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Icône de catégorie. */
+.category-card span {
+  display: inline-grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  font-size: 32px;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, var(--blue-ice), #ffffff);
+  border-radius: 20px;
+}
+
+/* Texte de catégorie. */
+.category-card strong {
+  color: var(--blue-dark);
+  font-size: 16px;
+}
+
+/* Carte produit plus élégante. */
+.product-card {
+  background: var(--white);
+  border: 1px solid rgba(219, 231, 243, 0.95);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: 0.25s ease;
+}
+
+/* Effet au survol produit. */
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Image de la carte produit. */
+.product-card img {
+  width: 100%;
+  height: 235px;
+  object-fit: cover;
+}
+
+/* Contenu de la carte produit. */
+.product-card-content {
+  padding: 20px;
+}
+
+/* Ligne supérieure du produit. */
+.product-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Pastille catégorie. */
+.category-pill {
+  background: var(--blue-ice);
+  color: var(--blue-dark);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* Pastille statut. */
+.status-pill {
+  background: #d1fae5;
+  color: #047857;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* Titre produit. */
+.product-card h3 {
+  color: var(--text-main);
+  font-size: 19px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  letter-spacing: -0.03em;
+}
+
+/* Prix produit. */
+.product-price {
+  color: var(--blue-main);
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+/* Métadonnées produit. */
+.product-meta {
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+/* Carte étape premium. */
+.step-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(219, 231, 243, 0.9);
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: var(--shadow-soft);
+  transition: 0.25s ease;
+}
+
+/* Effet au survol étape. */
+.step-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Icône étape. */
+.step-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
+  color: var(--white);
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  box-shadow: 0 16px 30px rgba(29, 111, 220, 0.25);
+}
+
+/* Titre étape. */
+.step-card h3 {
+  color: var(--blue-dark);
+  font-size: 21px;
+  letter-spacing: -0.04em;
+}
+
+/* Texte étape. */
+.step-card p {
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Description dans une carte catégorie. */
+.category-card p {
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Message pendant le chargement d'une section. */
+.section-loading {
+  color: var(--blue-dark);
+  font-weight: 900;
+}
+
+/* Message d'erreur d'une section. */
+.section-error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-weight: 900;
+}
+
+/* Message quand une section est vide. */
+.section-empty {
+  color: var(--text-muted);
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-weight: 800;
+}

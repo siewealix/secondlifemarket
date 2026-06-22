@@ -1,0 +1,6 @@
+@SecondLifeMarket.Api_HostAddress = http://localhost:5171
+
+GET {{SecondLifeMarket.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

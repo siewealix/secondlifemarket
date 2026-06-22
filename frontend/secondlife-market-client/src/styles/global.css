@@ -1,0 +1,105 @@
+/* On importe une police moderne depuis Google Fonts. */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap");
+
+/* On importe le style de mise en page. */
+@import "./layout.css";
+
+/* On importe le style des composants. */
+@import "./components.css";
+
+/* On importe le style des pages. */
+@import "./pages.css";
+
+/* On définit les couleurs principales du projet. */
+:root {
+  --blue-dark: #0b3a67;
+  --blue-main: #1d6fdc;
+  --blue-soft: #5cc8ff;
+  --blue-accent: #00a6d6;
+  --blue-night: #071f3a;
+  --blue-ice: #edf7ff;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --background: #f6f9fc;
+  --white: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: #dbe7f3;
+  --shadow-soft: 0 18px 45px rgba(11, 58, 103, 0.12);
+  --shadow-strong: 0 30px 80px rgba(11, 58, 103, 0.20);
+  --radius-small: 14px;
+  --radius-medium: 22px;
+  --radius-large: 34px;
+}
+
+/* On applique une règle simple à tous les éléments. */
+* {
+  box-sizing: border-box;
+}
+
+/* On configure le corps de la page. */
+body {
+  margin: 0;
+  font-family: "Manrope", Arial, sans-serif;
+  background: radial-gradient(circle at top left, #e8f6ff 0, #f6f9fc 42%, #ffffff 100%);
+  color: var(--text-main);
+}
+
+/* On retire le soulignement des liens. */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* On rend les images propres et responsives. */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* On donne un style élégant aux boutons. */
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 13px 22px;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.02em;
+  transition: 0.25s ease;
+}
+
+/* On crée le bouton principal bleu premium. */
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
+  color: var(--white);
+  box-shadow: 0 14px 28px rgba(29, 111, 220, 0.26);
+}
+
+/* On crée le bouton clair. */
+.btn-light {
+  background: rgba(237, 247, 255, 0.9);
+  color: var(--blue-dark);
+  border: 1px solid rgba(29, 111, 220, 0.12);
+}
+
+/* On crée le bouton contour. */
+.btn-outline {
+  background: var(--white);
+  color: var(--blue-main);
+  border: 1px solid rgba(29, 111, 220, 0.35);
+}
+
+/* On crée un bouton qui prend toute la largeur. */
+.btn-full {
+  width: 100%;
+}
+
+/* On ajoute un effet moderne au survol des boutons. */
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(29, 111, 220, 0.22);
+}

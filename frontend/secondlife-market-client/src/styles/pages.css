@@ -1,0 +1,998 @@
+/* Section hero plus spectaculaire. */
+.hero-section {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+  padding: 84px 7% 76px;
+  min-height: 680px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(92, 200, 255, 0.32), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(29, 111, 220, 0.18), transparent 30%),
+    linear-gradient(135deg, #f4fbff 0%, #ffffff 55%, #edf7ff 100%);
+}
+
+/* Forme décorative derrière le hero. */
+.hero-section::before {
+  content: "";
+  width: 520px;
+  height: 520px;
+  right: -160px;
+  top: 80px;
+  position: absolute;
+  background: linear-gradient(135deg, rgba(29, 111, 220, 0.18), rgba(92, 200, 255, 0.20));
+  border-radius: 50%;
+  filter: blur(8px);
+}
+
+/* Contenu texte du hero. */
+.hero-content {
+  align-self: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Badge hero. */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--blue-dark);
+  padding: 11px 18px;
+  border: 1px solid rgba(29, 111, 220, 0.12);
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+  font-weight: 900;
+  backdrop-filter: blur(16px);
+}
+
+/* Grand titre hero. */
+.hero-content h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(44px, 5.5vw, 78px);
+  line-height: 0.98;
+  color: var(--blue-night);
+  margin: 28px 0 20px;
+  letter-spacing: -0.05em;
+}
+
+/* Texte hero. */
+.hero-content p {
+  font-size: 19px;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: 670px;
+  font-weight: 500;
+}
+
+/* Barre de recherche hero. */
+.hero-search {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 11px 11px 11px 20px;
+  border: 1px solid rgba(219, 231, 243, 0.95);
+  border-radius: 999px;
+  box-shadow: var(--shadow-strong);
+  max-width: 720px;
+  margin-top: 32px;
+  backdrop-filter: blur(20px);
+}
+
+/* Icône de recherche. */
+.hero-search svg {
+  color: var(--blue-main);
+}
+
+/* Champ de recherche. */
+.hero-search input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: "Manrope", Arial, sans-serif;
+  color: var(--text-main);
+  background: transparent;
+}
+
+/* Placeholder du champ. */
+.hero-search input::placeholder {
+  color: #94a3b8;
+}
+
+/* Bouton de recherche. */
+.hero-search button {
+  border: none;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
+  color: var(--white);
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 26px rgba(29, 111, 220, 0.25);
+}
+
+/* Actions du hero. */
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+/* Informations de confiance. */
+.hero-trust {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+/* Élément confiance. */
+.hero-trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--blue-dark);
+  padding: 10px 14px;
+  border: 1px solid rgba(219, 231, 243, 0.95);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 10px 24px rgba(11, 58, 103, 0.08);
+}
+
+/* Partie visuelle du hero. */
+.hero-visual {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+}
+
+/* Carte image principale. */
+.hero-image-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 42px;
+  box-shadow: var(--shadow-strong);
+  transform: rotate(1.2deg);
+}
+
+/* Bordure brillante autour de l'image. */
+.hero-image-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 42px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Image hero. */
+.hero-image-card img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+/* Carte flottante du prix. */
+.floating-price-card {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 26px;
+  padding: 20px;
+  box-shadow: var(--shadow-strong);
+  z-index: 3;
+}
+
+/* Petit texte prix. */
+.floating-price-card span {
+  color: var(--text-muted);
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* Prix flottant. */
+.floating-price-card strong {
+  color: var(--blue-main);
+  font-size: 27px;
+  font-weight: 900;
+}
+
+/* Carte info flottante. */
+.floating-info-card {
+  position: absolute;
+  right: -16px;
+  top: 42px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(219, 231, 243, 0.85);
+  border-radius: 26px;
+  padding: 20px;
+  box-shadow: var(--shadow-strong);
+  max-width: 230px;
+  backdrop-filter: blur(16px);
+  z-index: 4;
+}
+
+/* Titre info flottante. */
+.floating-info-card strong {
+  color: var(--blue-dark);
+  display: block;
+  margin-bottom: 7px;
+  font-size: 18px;
+}
+
+/* Texte info flottante. */
+.floating-info-card span {
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+/* Section standard. */
+.home-section {
+  padding: 72px 7%;
+  position: relative;
+}
+
+/* En-tête de section. */
+.section-header {
+  margin-bottom: 36px;
+}
+
+/* Titre de section. */
+.section-header h2 {
+  font-family: "Playfair Display", serif;
+  color: var(--blue-night);
+  font-size: clamp(34px, 4vw, 48px);
+  margin: 0 0 10px;
+  letter-spacing: -0.04em;
+}
+
+/* Texte de section. */
+.section-header p {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* En-tête avec bouton. */
+.section-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+/* Grille des catégories. */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 20px;
+}
+
+/* Grille des produits. */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 26px;
+}
+
+/* Section comment ça marche. */
+.how-section {
+  background:
+    radial-gradient(circle at top right, rgba(92, 200, 255, 0.28), transparent 32%),
+    linear-gradient(135deg, #edf7ff, #ffffff);
+}
+
+/* Grille des étapes. */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  gap: 26px;
+}
+
+/* Responsive tablette. */
+@media (max-width: 950px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-image-card {
+    transform: none;
+  }
+
+  .floating-info-card {
+    right: 18px;
+  }
+}
+
+/* Responsive mobile. */
+@media (max-width: 620px) {
+  .hero-section {
+    padding: 48px 6%;
+  }
+
+  .home-section {
+    padding: 48px 6%;
+  }
+
+  .hero-search {
+    grid-template-columns: 1fr;
+    border-radius: 24px;
+  }
+
+  .hero-search button {
+    width: 100%;
+  }
+
+  .section-header-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero-content h1 {
+    font-size: 43px;
+  }
+
+  .hero-image-card img {
+    height: 360px;
+  }
+}
+
+/* Page globale d'authentification. */
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(92, 200, 255, 0.30), transparent 28%),
+    linear-gradient(135deg, #edf7ff, #ffffff);
+}
+
+/* Partie visuelle gauche. */
+.auth-visual {
+  padding: 56px 7%;
+  color: var(--white);
+  background:
+    radial-gradient(circle at top left, rgba(92, 200, 255, 0.24), transparent 34%),
+    linear-gradient(135deg, var(--blue-night), var(--blue-dark));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Décoration douce sur le panneau gauche. */
+.auth-visual::after {
+  content: "";
+  width: 420px;
+  height: 420px;
+  right: -160px;
+  bottom: -160px;
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(92, 200, 255, 0.18);
+}
+
+/* Logo de la page auth. */
+.auth-logo {
+  position: absolute;
+  top: 32px;
+  left: 7%;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 900;
+  font-size: 21px;
+}
+
+/* Icône du logo auth. */
+.auth-logo svg {
+  padding: 7px;
+  width: 45px;
+  height: 45px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Grand titre auth. */
+.auth-visual h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(42px, 5vw, 70px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  max-width: 620px;
+  margin: 0 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Texte auth. */
+.auth-visual p {
+  color: #dbeafe;
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 560px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Liste des bénéfices. */
+.auth-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Bénéfice individuel. */
+.auth-benefits span {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.13);
+  color: #e0f2fe;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+/* Panneau du formulaire. */
+.auth-panel {
+  padding: 58px 7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* En-tête du formulaire. */
+.auth-header {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+/* Titre du formulaire. */
+.auth-header h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(36px, 4vw, 54px);
+  color: var(--blue-night);
+  margin: 0 0 10px;
+  letter-spacing: -0.04em;
+}
+
+/* Sous-titre du formulaire. */
+.auth-header p {
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Formulaire auth. */
+.auth-form {
+  max-width: 760px;
+  padding: 28px;
+  border: 1px solid rgba(219, 231, 243, 0.95);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-strong);
+  backdrop-filter: blur(18px);
+}
+
+/* Note des champs obligatoires. */
+.required-note {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Grille inscription. */
+.auth-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* Groupe de champ. */
+.auth-field {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* Label des champs. */
+.auth-field label {
+  color: var(--blue-dark);
+  font-weight: 900;
+  font-size: 14px;
+}
+
+/* Champs auth. */
+.auth-field input {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  color: var(--text-main);
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 15px;
+  padding: 0 16px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+/* Focus visible des champs. */
+.auth-field input:focus {
+  border-color: var(--blue-main);
+  box-shadow: 0 0 0 4px rgba(29, 111, 220, 0.14);
+}
+
+/* Champ en erreur. */
+.auth-field input[aria-invalid="true"] {
+  border-color: var(--red);
+}
+
+/* Message d'erreur. */
+.auth-error {
+  color: #b91c1c;
+  background: #fee2e2;
+  padding: 9px 12px;
+  border-radius: 12px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* Wrapper du mot de passe. */
+.password-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+/* Input dans wrapper password. */
+.password-wrapper input {
+  border: none;
+  border-radius: 0;
+}
+
+/* Focus dans wrapper password. */
+.password-wrapper:focus-within {
+  border-color: var(--blue-main);
+  box-shadow: 0 0 0 4px rgba(29, 111, 220, 0.14);
+}
+
+/* Bouton afficher password. */
+.password-toggle {
+  height: 100%;
+  border: none;
+  background: var(--blue-ice);
+  color: var(--blue-dark);
+  font-weight: 900;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+/* Bouton principal auth. */
+.auth-submit {
+  width: 100%;
+  min-height: 54px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
+  color: var(--white);
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 16px 34px rgba(29, 111, 220, 0.24);
+  transition: 0.2s ease;
+}
+
+/* Survol du bouton auth. */
+.auth-submit:hover {
+  transform: translateY(-2px);
+}
+
+/* Bouton désactivé. */
+.auth-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Aide sous connexion. */
+.auth-help {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Changement connexion inscription. */
+.auth-switch {
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+/* Lien connexion inscription. */
+.auth-switch a {
+  color: var(--blue-main);
+  font-weight: 900;
+}
+
+/* Focus visible sur les boutons et liens. */
+.auth-form a:focus-visible,
+.auth-form button:focus-visible,
+.auth-logo:focus-visible {
+  outline: 4px solid rgba(92, 200, 255, 0.55);
+  outline-offset: 4px;
+}
+
+/* Responsive tablette. */
+@media (max-width: 980px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-visual {
+    min-height: 420px;
+  }
+}
+
+/* Responsive mobile. */
+@media (max-width: 680px) {
+  .auth-panel {
+    padding: 34px 6%;
+  }
+
+  .auth-visual {
+    padding: 110px 6% 42px;
+  }
+
+  .auth-form {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .auth-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Élément qui prend toute la largeur dans la grille. */
+.auth-grid-full {
+  grid-column: 1 / -1;
+}
+
+/* Liste des règles du mot de passe. */
+.password-rules {
+  display: grid;
+  gap: 8px;
+  margin: -4px 0 16px;
+  padding: 14px;
+  list-style: none;
+  border-radius: 16px;
+  background: var(--blue-ice);
+  border: 1px solid var(--border);
+}
+
+/* Ligne d'une règle de mot de passe. */
+.password-rules li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* Règle valide. */
+.password-rules li.valid {
+  color: #047857;
+}
+
+/* Règle invalide. */
+.password-rules li.invalid {
+  color: var(--text-muted);
+}
+
+/* Icône d'une règle valide ou invalide. */
+.password-rules li span:first-child {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--white);
+}
+
+/* Bouton désactivé. */
+.auth-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Message d'erreur venant du backend. */
+.auth-server-error {
+  color: #b91c1c;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 12px 14px;
+  border-radius: 14px;
+  margin: 0 0 18px;
+  font-weight: 900;
+}
+
+/* Message de chargement des routes protégées. */
+.page-loading {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--blue-dark);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* Tableau de bord simple de test. */
+.simple-dashboard {
+  min-height: 100vh;
+  padding: 90px 7%;
+  background: linear-gradient(135deg, #edf7ff, #ffffff);
+}
+
+/* Titre du tableau de bord simple. */
+.simple-dashboard h1 {
+  font-family: "Playfair Display", serif;
+  color: var(--blue-night);
+  font-size: 48px;
+  margin-bottom: 14px;
+}
+
+/* Texte du tableau de bord simple. */
+.simple-dashboard p {
+  color: var(--text-muted);
+  font-size: 18px;
+}
+
+/* Badge du rôle. */
+.simple-dashboard span {
+  display: inline-flex;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: var(--blue-dark);
+  background: var(--blue-ice);
+  font-weight: 900;
+}
+
+/* Message d'erreur serveur important. */
+.auth-server-error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 14px 16px;
+  border-radius: 16px;
+  margin: 0 0 18px;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+/* Message d'erreur serveur au focus clavier. */
+.auth-server-error:focus {
+  outline: 4px solid rgba(239, 68, 68, 0.25);
+  outline-offset: 3px;
+}
+
+/* Page admin complète. */
+.admin-page {
+  min-height: 100vh;
+  padding: 70px 7%;
+  background: linear-gradient(135deg, #edf7ff, #ffffff);
+}
+
+/* En-tête de page admin. */
+.admin-page-header {
+  margin-bottom: 28px;
+}
+
+/* Titre admin. */
+.admin-page-header h1 {
+  font-family: "Playfair Display", serif;
+  color: var(--blue-night);
+  font-size: 48px;
+  margin: 0 0 10px;
+}
+
+/* Description admin. */
+.admin-page-header p {
+  color: var(--text-muted);
+  font-size: 17px;
+}
+
+/* Grille admin. */
+.admin-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 24px;
+}
+
+/* Carte admin. */
+.admin-card {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Titre carte admin. */
+.admin-card h2 {
+  color: var(--blue-dark);
+  margin-top: 0;
+}
+
+/* Champ admin. */
+.admin-field {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+/* Label admin. */
+.admin-field label {
+  color: var(--blue-dark);
+  font-weight: 900;
+}
+
+/* Input et textarea admin. */
+.admin-field input,
+.admin-field textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 15px;
+  outline: none;
+}
+
+/* Textarea admin. */
+.admin-field textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* Focus champs admin. */
+.admin-field input:focus,
+.admin-field textarea:focus {
+  border-color: var(--blue-main);
+  box-shadow: 0 0 0 4px rgba(29, 111, 220, 0.14);
+}
+
+/* Checkbox admin. */
+.admin-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--blue-dark);
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+/* Actions admin. */
+.admin-actions,
+.dashboard-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+/* Message succès admin. */
+.admin-success {
+  color: #047857;
+  background: #d1fae5;
+  border: 1px solid #a7f3d0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-weight: 900;
+}
+
+/* Wrapper tableau. */
+.admin-table-wrapper {
+  overflow-x: auto;
+}
+
+/* Tableau admin. */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Cellules du tableau. */
+.admin-table th,
+.admin-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+/* En-tête tableau. */
+.admin-table th {
+  color: var(--blue-dark);
+  font-size: 14px;
+}
+
+/* Description dans tableau. */
+.admin-table td p {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Badge actif. */
+.badge-active {
+  color: #047857;
+  background: #d1fae5;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 13px;
+}
+
+/* Badge inactif. */
+.badge-inactive {
+  color: #991b1b;
+  background: #fee2e2;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 13px;
+}
+
+/* Bouton lien tableau. */
+.table-link {
+  border: none;
+  background: transparent;
+  color: var(--blue-main);
+  font-weight: 900;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* Bouton danger tableau. */
+.table-danger {
+  border: none;
+  background: transparent;
+  color: #b91c1c;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* Responsive admin. */
+@media (max-width: 950px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+}

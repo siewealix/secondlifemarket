@@ -1,0 +1,142 @@
+/* On crée une navbar plus premium. */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 18px 7%;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(219, 231, 243, 0.75);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* On stylise le logo avec plus d'élégance. */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--blue-dark);
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+/* On stylise l'icône du logo. */
+.navbar-logo svg {
+  padding: 6px;
+  width: 42px;
+  height: 42px;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
+  border-radius: 15px;
+  box-shadow: 0 12px 26px rgba(29, 111, 220, 0.25);
+}
+
+/* On stylise les liens du menu. */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+/* On améliore le survol des liens. */
+.navbar-links a {
+  position: relative;
+}
+
+/* On crée une petite barre sous le lien au survol. */
+.navbar-links a::after {
+  content: "";
+  width: 0;
+  height: 3px;
+  left: 0;
+  bottom: -8px;
+  position: absolute;
+  background: linear-gradient(135deg, var(--blue-main), var(--blue-soft));
+  border-radius: 999px;
+  transition: 0.25s ease;
+}
+
+/* On change la couleur des liens au survol. */
+.navbar-links a:hover {
+  color: var(--blue-dark);
+}
+
+/* On affiche la barre au survol. */
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+/* On stylise la zone des boutons. */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* On stylise le footer. */
+.footer {
+  text-align: center;
+  padding: 54px 7%;
+  background: linear-gradient(135deg, var(--blue-night), var(--blue-dark));
+  color: var(--white);
+  margin-top: 20px;
+}
+
+/* On stylise le titre du footer. */
+.footer h3 {
+  margin-top: 0;
+  font-size: 26px;
+  letter-spacing: -0.04em;
+}
+
+/* On stylise le texte du footer. */
+.footer p {
+  color: #dbeafe;
+}
+
+/* On stylise le petit texte du footer. */
+.footer span {
+  color: #a9d7ff;
+  font-weight: 700;
+}
+
+/* Responsive tablette. */
+@media (max-width: 900px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .navbar-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Responsive téléphone. */
+@media (max-width: 600px) {
+  .navbar {
+    align-items: stretch;
+  }
+
+  .navbar-logo {
+    justify-content: center;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
