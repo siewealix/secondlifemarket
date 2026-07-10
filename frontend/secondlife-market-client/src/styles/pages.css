@@ -3798,3 +3798,229 @@
   /* Vert plus foncé. */
   background: #166534;
 }
+
+/* Section admin abonnements */
+.admin-subscription-section {
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Titre section admin abonnements */
+.admin-subscription-section h2 {
+  margin-top: 0;
+  color: #071f3a;
+}
+
+/* Formulaire admin abonnements */
+.admin-subscription-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* Groupe complet */
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+/* Zone texte */
+.admin-subscription-form textarea {
+  min-height: 90px;
+  padding: 12px 14px;
+  border: 1px solid rgba(11, 58, 103, 0.18);
+  border-radius: 12px;
+  resize: vertical;
+  font-size: 15px;
+}
+
+/* Actions du formulaire */
+.admin-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Table abonnements admin */
+.admin-subscription-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Cellules table */
+.admin-subscription-table th,
+.admin-subscription-table td {
+  padding: 14px;
+  border-bottom: 1px solid rgba(11, 58, 103, 0.1);
+  text-align: left;
+}
+
+/* En-têtes table */
+.admin-subscription-table th {
+  color: #071f3a;
+  font-weight: 800;
+}
+
+/* Actions dans table */
+.admin-table-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Statut type actif */
+.type-status.active {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 700;
+}
+
+/* Statut type inactif */
+.type-status.inactive {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-weight: 700;
+}
+
+/* Section admin abonnements */
+.admin-subscription-section {
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 22px;
+  padding: 28px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Titre de la section */
+.admin-subscription-section h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #071f3a;
+  font-size: 28px;
+}
+
+/* Formulaire admin abonnements */
+.admin-subscription-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+/* Groupe de champ */
+.admin-subscription-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Groupe qui prend toute la largeur */
+.admin-subscription-form .form-group-full {
+  grid-column: 1 / -1;
+}
+
+/* Labels */
+.admin-subscription-form label {
+  font-weight: 700;
+  color: #071f3a;
+  font-size: 15px;
+}
+
+/* Inputs */
+.admin-subscription-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(11, 58, 103, 0.18);
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  background: #ffffff;
+}
+
+/* Textarea */
+.admin-subscription-form textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px 14px;
+  border: 1px solid rgba(11, 58, 103, 0.18);
+  border-radius: 12px;
+  resize: vertical;
+  font-size: 15px;
+  outline: none;
+  background: #ffffff;
+}
+
+/* Effet focus */
+.admin-subscription-form input:focus,
+.admin-subscription-form textarea:focus {
+  border-color: #0b3a67;
+  box-shadow: 0 0 0 3px rgba(11, 58, 103, 0.12);
+}
+
+/* Actions du formulaire */
+.admin-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* Table abonnements admin */
+.admin-subscription-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Cellules table */
+.admin-subscription-table th,
+.admin-subscription-table td {
+  padding: 14px;
+  border-bottom: 1px solid rgba(11, 58, 103, 0.1);
+  text-align: left;
+}
+
+/* En-têtes table */
+.admin-subscription-table th {
+  color: #071f3a;
+  font-weight: 800;
+  background: #f5f9fc;
+}
+
+/* Actions dans table */
+.admin-table-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Statut type actif */
+.type-status.active {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 700;
+}
+
+/* Statut type inactif */
+.type-status.inactive {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-weight: 700;
+}

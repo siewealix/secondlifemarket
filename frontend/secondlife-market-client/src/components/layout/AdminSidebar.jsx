@@ -24,7 +24,7 @@ export default function AdminSidebar() {
 
         {/* On ajoute le lien vers la gestion des membres. */}
         <Link to="/admin/utilisateurs" className="admin-sidebar-link">
-        Membres
+          Membres
         </Link>
 
         {/* On ajoute le lien vers les réexamens IA. */}
@@ -32,11 +32,15 @@ export default function AdminSidebar() {
           Réexamens IA
         </Link>
 
-        {/* Lien vers la gestion des signalements. */}
+        {/* On ajoute le lien vers la gestion des signalements. */}
         <Link to="/admin/signalements" className="admin-sidebar-link">
-        Signalements
+          Signalements
         </Link>
-        
+
+        {/* On ajoute le lien vers la gestion des abonnements. */}
+        <Link to="/admin/abonnements" className="admin-sidebar-link">
+          Abonnements
+        </Link>
       </nav>
     </aside>
   );

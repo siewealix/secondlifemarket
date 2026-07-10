@@ -54,6 +54,9 @@ public class ApplicationDbContext : DbContext
     // Table des abonnements.
     public DbSet<Abonnement> Abonnements { get; set; }
 
+    // Table des types d'abonnement disponibles.
+    public DbSet<TypeAbonnement> TypesAbonnement { get; set; }
+
     // Cette méthode permet de configurer certaines relations entre les tables.
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -138,6 +141,24 @@ public class ApplicationDbContext : DbContext
             .HasOne(abonnement => abonnement.Utilisateur)
             .WithOne(utilisateur => utilisateur.Abonnement)
             .HasForeignKey<Abonnement>(abonnement => abonnement.UtilisateurId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // On impose que le nom d'un type d'abonnement soit unique.
+        modelBuilder.Entity<TypeAbonnement>()
+            .HasIndex(type => type.Nom)
+            .IsUnique();
+
+        // On précise la précision du prix.
+        modelBuilder.Entity<TypeAbonnement>()
+            .Property(type => type.Prix)
+            .HasPrecision(18, 2);
+
+        // Relation entre TypeAbonnement et Abonnement.
+        // Un type d'abonnement peut être utilisé par plusieurs abonnements.
+        modelBuilder.Entity<Abonnement>()
+            .HasOne(abonnement => abonnement.TypeAbonnementNavigation)
+            .WithMany(type => type.Abonnements)
+            .HasForeignKey(abonnement => abonnement.TypeAbonnementId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

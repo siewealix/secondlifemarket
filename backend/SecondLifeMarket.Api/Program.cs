@@ -139,10 +139,13 @@ builder.Services.AddScoped<ISignalementService, SignalementService>();
 // On ajoute le service admin pour gérer les utilisateurs.
 builder.Services.AddScoped<IAdminUtilisateurService, AdminUtilisateurService>();
 
+builder.Services.AddScoped<IAdminAbonnementService, AdminAbonnementService>();
+
 // On ajoute le service des abonnements.
 builder.Services.AddScoped<IAbonnementService, AbonnementService>();
 
 builder.Services.AddScoped<ITableauBordService, TableauBordService>();
+
 
 // On récupère la clé JWT.
 string jwtKey = builder.Configuration["Jwt:Key"]!;

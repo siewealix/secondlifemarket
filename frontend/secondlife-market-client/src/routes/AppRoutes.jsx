@@ -67,6 +67,8 @@ import ManageUsersPage from "../pages/admin/ManageUsersPage.jsx";
 // On importe la page d'abonnement vendeur.
 import SellerSubscriptionPage from "../pages/seller/SellerSubscriptionPage.jsx";
 
+import ManageSubscriptionsPage from "../pages/admin/ManageSubscriptionsPage.jsx";
+
 // On crée le composant des routes.
 function AppRoutes() {
   // On retourne toutes les routes de l'application.
@@ -137,6 +139,9 @@ function AppRoutes() {
 
         {/* Page de gestion des membres. */}
         <Route path="/admin/utilisateurs" element={<ManageUsersPage />} />
+
+        {/* Page de gestion des abonnements. */}
+        <Route path="/admin/abonnements" element={<ManageSubscriptionsPage />} />
       </Route>
     </Routes>
   );

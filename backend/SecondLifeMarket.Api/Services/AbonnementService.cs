@@ -22,10 +22,32 @@ public class AbonnementService : IAbonnementService
     }
 
     // Méthode qui retourne les offres d'abonnement disponibles.
-    public Task<List<OffreAbonnementDto>> GetOffresAbonnementAsync()
+    public async Task<List<OffreAbonnementDto>> GetOffresAbonnementAsync()
     {
-        // On retourne les offres définies dans le service.
-        return Task.FromResult(GetOffresDisponibles());
+        // On récupère seulement les types d'abonnement actifs.
+        List<TypeAbonnement> types = await _context.TypesAbonnement
+            .Where(type => type.EstActif)
+            .OrderBy(type => type.Prix)
+            .ToListAsync();
+
+        // On transforme les types d'abonnement en DTO.
+        return types.Select(type => new OffreAbonnementDto
+        {
+            // Nom de l'offre.
+            TypeAbonnement = type.Nom,
+
+            // Description de l'offre.
+            Description = type.Description,
+
+            // Prix de l'offre.
+            Prix = type.Prix,
+
+            // Durée en jours.
+            DureeJours = type.DureeJours,
+
+            // Limite de publication.
+            LimitePublication = type.LimitePublication
+        }).ToList();
     }
 
     // Méthode qui permet à un membre de souscrire ou de changer d'abonnement.
@@ -73,19 +95,18 @@ public class AbonnementService : IAbonnementService
             throw new InvalidOperationException("Seuls les membres peuvent souscrire à un abonnement.");
         }
 
-        // On récupère les offres disponibles.
-        List<OffreAbonnementDto> offres = GetOffresDisponibles();
-
-        // On cherche l'offre choisie.
-        OffreAbonnementDto? offre = offres.FirstOrDefault(item =>
-            item.TypeAbonnement.Equals(typeAbonnement, StringComparison.OrdinalIgnoreCase)
-        );
+        // On cherche le type d'abonnement actif choisi.
+        TypeAbonnement? type = await _context.TypesAbonnement
+            .FirstOrDefaultAsync(item =>
+                item.EstActif &&
+                item.Nom.ToLower() == typeAbonnement.ToLower()
+            );
 
         // On vérifie si l'offre existe.
-        if (offre == null)
+        if (type == null)
         {
-            // On bloque si l'offre est invalide.
-            throw new InvalidOperationException("Cette offre d'abonnement n'existe pas.");
+            // On bloque si l'offre est inexistante ou désactivée.
+            throw new InvalidOperationException("Cette offre d'abonnement n'existe pas ou n'est pas active.");
         }
 
         // On récupère la date actuelle.
@@ -94,6 +115,7 @@ public class AbonnementService : IAbonnementService
         // On cherche l'abonnement existant du membre.
         Abonnement? abonnementExistant = await _context.Abonnements
             .Include(item => item.Utilisateur)
+            .Include(item => item.TypeAbonnementNavigation)
             .FirstOrDefaultAsync(item => item.UtilisateurId == utilisateurId);
 
         // Si le membre n'a pas encore d'abonnement, on crée une nouvelle ligne.
@@ -102,23 +124,26 @@ public class AbonnementService : IAbonnementService
             // On crée le nouvel abonnement.
             Abonnement nouvelAbonnement = new()
             {
-                // On enregistre le type d'abonnement.
-                TypeAbonnement = offre.TypeAbonnement,
+                // On garde une copie du nom de l'offre.
+                TypeAbonnement = type.Nom,
 
                 // On enregistre la date de début.
                 DateDebut = now,
 
                 // On calcule la date de fin.
-                DateFin = now.AddDays(offre.DureeJours),
+                DateFin = now.AddDays(type.DureeJours),
 
                 // On met le statut actif.
                 StatutAbonnement = "Actif",
 
-                // On enregistre la limite de publication selon l'offre.
-                LimitePublication = offre.LimitePublication,
+                // On garde une copie de la limite de publication.
+                LimitePublication = type.LimitePublication,
 
                 // On relie l'abonnement au membre connecté.
-                UtilisateurId = utilisateurId
+                UtilisateurId = utilisateurId,
+
+                // On relie l'abonnement au type d'abonnement.
+                TypeAbonnementId = type.Id
             };
 
             // On ajoute l'abonnement dans le contexte.
@@ -127,44 +152,54 @@ public class AbonnementService : IAbonnementService
             // On sauvegarde dans MySQL.
             await _context.SaveChangesAsync();
 
-            // On recharge l'abonnement avec son utilisateur.
+            // On recharge l'abonnement avec ses relations.
             Abonnement abonnementCree = await _context.Abonnements
                 .Include(item => item.Utilisateur)
+                .Include(item => item.TypeAbonnementNavigation)
                 .FirstAsync(item => item.Id == nouvelAbonnement.Id);
 
             // On retourne l'abonnement créé.
             return ToDto(abonnementCree);
         }
 
-        // On vérifie si le membre choisit exactement la même offre.
-        if (abonnementExistant.TypeAbonnement.Equals(offre.TypeAbonnement, StringComparison.OrdinalIgnoreCase)
-            && abonnementExistant.StatutAbonnement == "Actif"
-            && abonnementExistant.DateFin >= now)
+        // On vérifie si le membre choisit exactement la même offre encore active.
+        if (abonnementExistant.TypeAbonnementId == type.Id &&
+            abonnementExistant.StatutAbonnement == "Actif" &&
+            abonnementExistant.DateFin >= now)
         {
             // On bloque car il a déjà cette offre active.
             throw new InvalidOperationException("Vous avez déjà cet abonnement actif.");
         }
 
         // On met à jour l'abonnement existant au lieu de créer une deuxième ligne.
-        abonnementExistant.TypeAbonnement = offre.TypeAbonnement;
+        abonnementExistant.TypeAbonnement = type.Nom;
+
+        // On relie au nouveau type d'abonnement.
+        abonnementExistant.TypeAbonnementId = type.Id;
 
         // On remet la date de début à aujourd'hui.
         abonnementExistant.DateDebut = now;
 
         // On calcule la nouvelle date de fin.
-        abonnementExistant.DateFin = now.AddDays(offre.DureeJours);
+        abonnementExistant.DateFin = now.AddDays(type.DureeJours);
 
         // On remet le statut actif.
         abonnementExistant.StatutAbonnement = "Actif";
 
-        // On met à jour la nouvelle limite de publication.
-        abonnementExistant.LimitePublication = offre.LimitePublication;
+        // On met à jour la limite de publication.
+        abonnementExistant.LimitePublication = type.LimitePublication;
 
         // On sauvegarde les modifications.
         await _context.SaveChangesAsync();
 
+        // On recharge l'abonnement avec ses relations.
+        Abonnement abonnementMisAJour = await _context.Abonnements
+            .Include(item => item.Utilisateur)
+            .Include(item => item.TypeAbonnementNavigation)
+            .FirstAsync(item => item.Id == abonnementExistant.Id);
+
         // On retourne l'abonnement mis à jour.
-        return ToDto(abonnementExistant);
+        return ToDto(abonnementMisAJour);
     }
 
     // Méthode qui permet à un membre de résilier son abonnement.
@@ -410,71 +445,6 @@ public class AbonnementService : IAbonnementService
 
             // On retourne le message.
             Message = message
-        };
-    }
-
-    // Méthode qui retourne les offres disponibles.
-    private static List<OffreAbonnementDto> GetOffresDisponibles()
-    {
-        // On crée la liste des offres disponibles.
-        return new List<OffreAbonnementDto>
-        {
-            // Offre Basic.
-            new OffreAbonnementDto
-            {
-                // On définit le type.
-                TypeAbonnement = "Basic",
-
-                // On définit la description.
-                Description = "Abonnement pour dépasser la limite gratuite de 3 publications.",
-
-                // On définit le prix.
-                Prix = 1000,
-
-                // On définit la durée.
-                DureeJours = 30,
-
-                // On définit la limite de publication.
-                LimitePublication = 10
-            },
-
-            // Offre Standard.
-            new OffreAbonnementDto
-            {
-                // On définit le type.
-                TypeAbonnement = "Standard",
-
-                // On définit la description.
-                Description = "Abonnement adapté aux vendeurs réguliers qui publient plusieurs objets.",
-
-                // On définit le prix.
-                Prix = 2500,
-
-                // On définit la durée.
-                DureeJours = 30,
-
-                // On définit la limite de publication.
-                LimitePublication = 25
-            },
-
-            // Offre Premium.
-            new OffreAbonnementDto
-            {
-                // On définit le type.
-                TypeAbonnement = "Premium",
-
-                // On définit la description.
-                Description = "Abonnement avancé pour les vendeurs très actifs.",
-
-                // On définit le prix.
-                Prix = 5000,
-
-                // On définit la durée.
-                DureeJours = 30,
-
-                // On définit la limite de publication.
-                LimitePublication = 50
-            }
         };
     }
 
