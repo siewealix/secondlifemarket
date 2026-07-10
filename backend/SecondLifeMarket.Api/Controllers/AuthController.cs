@@ -85,7 +85,21 @@ public class AuthController : ControllerBase
         }
         catch (InvalidOperationException error)
         {
-            // On retourne 429 quand l'utilisateur est bloqué.
+            // On vérifie si l'erreur concerne un compte suspendu.
+            if (IsSuspensionMessage(error.Message))
+            {
+                // On retourne 403 parce que le compte existe mais n'a plus le droit d'accéder.
+                return StatusCode(403, new
+                {
+                    // On affiche le message de suspension.
+                    message = error.Message,
+
+                    // Il ne reste aucune tentative utile.
+                    remainingAttempts = 0
+                });
+            }
+
+            // On retourne 429 quand l'utilisateur est bloqué par trop de tentatives.
             return StatusCode(429, new
             {
                 // On affiche le message de blocage.
@@ -101,14 +115,34 @@ public class AuthController : ControllerBase
     [HttpPost("refresh")]
     public async Task<IActionResult> Refresh()
     {
-        // On appelle le service de renouvellement.
-        AuthResponseDto? response = await _authService.RefreshAsync(Request, Response);
+        // On essaie de renouveler la session.
+        try
+        {
+            // On appelle le service de renouvellement.
+            AuthResponseDto? response = await _authService.RefreshAsync(Request, Response);
 
-        // On refuse si la session est expirée.
-        if (response == null) return Unauthorized(new { message = "Session expirée." });
+            // On refuse si la session est expirée.
+            if (response == null)
+            {
+                // On retourne une erreur 401.
+                return Unauthorized(new { message = "Session expirée." });
+            }
 
-        // On retourne un nouveau access token.
-        return Ok(response);
+            // On retourne un nouveau access token.
+            return Ok(response);
+        }
+        catch (InvalidOperationException error)
+        {
+            // On vérifie si l'erreur concerne un compte suspendu.
+            if (IsSuspensionMessage(error.Message))
+            {
+                // On retourne 403 parce que le compte suspendu ne peut plus renouveler son token.
+                return StatusCode(403, new { message = error.Message });
+            }
+
+            // On retourne une erreur simple pour les autres cas.
+            return BadRequest(new { message = error.Message });
+        }
     }
 
     // On crée la route de déconnexion.
@@ -130,21 +164,44 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Me()
     {
         // On récupère l'identifiant de l'utilisateur depuis le token.
-        string? userIdText = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        string? userIdText = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            ?? User.FindFirstValue("id")
+            ?? User.FindFirstValue("userId");
 
         // On refuse si l'identifiant est absent.
-        if (userIdText == null) return Unauthorized();
+        if (string.IsNullOrWhiteSpace(userIdText))
+        {
+            // On retourne une erreur 401.
+            return Unauthorized(new { message = "Utilisateur non authentifié." });
+        }
 
-        // On transforme l'identifiant en entier.
-        int userId = int.Parse(userIdText);
+        // On vérifie si l'identifiant est valide.
+        if (!int.TryParse(userIdText, out int userId))
+        {
+            // On retourne une erreur 401.
+            return Unauthorized(new { message = "Identifiant utilisateur invalide." });
+        }
 
         // On récupère l'utilisateur connecté.
         AuthUserDto? user = await _authService.GetMeAsync(userId);
 
         // On refuse si l'utilisateur n'existe plus.
-        if (user == null) return Unauthorized();
+        if (user == null)
+        {
+            // On retourne une erreur 401.
+            return Unauthorized(new { message = "Utilisateur introuvable." });
+        }
 
         // On retourne l'utilisateur connecté.
         return Ok(user);
+    }
+
+    // Cette méthode vérifie si un message d'erreur concerne une suspension.
+    private static bool IsSuspensionMessage(string message)
+    {
+        // On retourne vrai si le message contient le mot suspendu.
+        return message.Contains("suspendu", StringComparison.OrdinalIgnoreCase)
+            || message.Contains("suspendue", StringComparison.OrdinalIgnoreCase)
+            || message.Contains("suspension", StringComparison.OrdinalIgnoreCase);
     }
 }

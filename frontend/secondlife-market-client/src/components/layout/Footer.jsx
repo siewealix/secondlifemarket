@@ -9,9 +9,6 @@ function Footer() {
 
       {/* Phrase courte. */}
       <p>Achetez et vendez vos objets d’occasion en toute simplicité.</p>
-
-      {/* Petit texte final. */}
-      <span>Projet PFE CDA • Frontend React.js</span>
     </footer>
   );
 }

@@ -33,4 +33,7 @@ public class Categorie
 
     // On stocke la date de création.
     public DateTime DateCreation { get; set; } = DateTime.UtcNow;
+
+    // On relie la catégorie à ses annonces.
+    public List<Annonce> Annonces { get; set; } = new();
 }

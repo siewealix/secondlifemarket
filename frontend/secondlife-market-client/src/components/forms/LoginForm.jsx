@@ -1,6 +1,9 @@
 // On importe useState pour afficher une erreur serveur.
 import { useState } from "react";
 
+// On importe useEffect pour afficher un message reçu après redirection.
+import { useEffect } from "react";
+
 // On importe Link pour aller vers l'inscription.
 import { Link } from "react-router-dom";
 
@@ -83,15 +86,15 @@ function validateLogin(values) {
 }
 
 // On crée le formulaire de connexion.
-function LoginForm() {
+function LoginForm({ redirectedMessage = "" }) {
   // On prépare la navigation.
   const navigate = useNavigate();
 
   // On récupère la fonction login réelle.
   const { login } = useAuth();
 
-  // On stocke l'erreur venant du backend.
-  const [serverError, setServerError] = useState("");
+  // On stocke l'erreur venant du backend ou d'une redirection.
+  const [serverError, setServerError] = useState(redirectedMessage);
 
   // On utilise le hook de formulaire.
   const { values, isSubmitting, canSubmit, handleChange, handleBlur, getError, handleSubmit } = useForm(initialValues, validateLogin);
@@ -99,9 +102,17 @@ function LoginForm() {
   // On vérifie les règles du mot de passe en temps réel.
   const { rules } = usePasswordRules(values.password);
 
+  // On affiche le message de redirection s'il existe.
+  useEffect(() => {
+    // On vérifie si un message de redirection existe.
+    if (redirectedMessage) {
+      // On affiche ce message dans le formulaire.
+      setServerError(redirectedMessage);
+    }
+  }, [redirectedMessage]);
+
   // On crée une fonction appelée quand l'utilisateur écrit.
   function handleInputChange(event) {
-    
     // On efface l'erreur serveur.
     setServerError("");
 
@@ -133,15 +144,19 @@ function LoginForm() {
 
       // On redirige vers le tableau de bord membre.
       navigate("/membre");
-       } catch (error) {
-  if (error.message === "Failed to fetch") {
-    setServerError("Impossible de contacter le serveur. Vérifiez que l’API est lancée et que l’adresse .env est correcte.");
+    } catch (error) {
+      // On vérifie si le serveur est inaccessible.
+      if (error.message === "Failed to fetch") {
+        // On affiche un message clair.
+        setServerError("Impossible de contacter le serveur. Vérifiez que l’API est lancée et que l’adresse .env est correcte.");
 
-    return;
-  }
+        // On arrête la fonction.
+        return;
+      }
 
-  setServerError(error.message);
-}     
+      // On affiche le message envoyé par le backend.
+      setServerError(error.message);
+    }
   }
 
   // On retourne le formulaire.
@@ -159,7 +174,6 @@ function LoginForm() {
           {serverError}
         </p>
       )}
-
 
       {/* On affiche le champ email. */}
       <AuthTextField

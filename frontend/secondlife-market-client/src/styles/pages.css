@@ -996,3 +996,2805 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Page des annonces. */
+.annonces-page {
+  min-height: 100vh;
+  padding: 70px 7%;
+  background: linear-gradient(135deg, #edf7ff, #ffffff);
+}
+
+/* En-tête de la page annonces. */
+.annonces-header {
+  margin-bottom: 34px;
+}
+
+/* Titre de la page annonces. */
+.annonces-header h1 {
+  font-family: "Playfair Display", serif;
+  color: var(--blue-night);
+  font-size: 52px;
+  margin: 0 0 12px;
+}
+
+/* Description de la page annonces. */
+.annonces-header p {
+  color: var(--text-muted);
+  font-size: 17px;
+  max-width: 720px;
+}
+
+/* Grille des annonces. */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Placeholder image annonce. */
+.product-image-placeholder {
+  height: 220px;
+  display: grid;
+  place-items: center;
+  font-size: 64px;
+  background: linear-gradient(135deg, #edf7ff, #dbeafe);
+  border-radius: 24px 24px 0 0;
+}
+
+/* Corps de la carte annonce. */
+.product-card-body {
+  padding: 20px;
+}
+
+/* Catégorie annonce. */
+.product-category {
+  display: inline-flex;
+  color: var(--blue-main);
+  background: rgba(29, 111, 220, 0.1);
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 13px;
+}
+
+/* Titre carte annonce. */
+.product-card h3 {
+  color: var(--blue-night);
+  font-size: 20px;
+  margin: 14px 0 8px;
+}
+
+/* Description carte annonce. */
+.product-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Métadonnées annonce. */
+.product-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+
+/* Élément métadonnée. */
+.product-meta span {
+  background: var(--blue-ice);
+  color: var(--blue-dark);
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Bas de carte annonce. */
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+/* Prix carte annonce. */
+.product-footer strong {
+  color: var(--blue-dark);
+  font-size: 18px;
+}
+
+/* Lien détail annonce. */
+.product-link {
+  color: var(--blue-main);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+/* Page détail annonce. */
+.annonce-details-page {
+  min-height: 100vh;
+  padding: 60px 7%;
+  background: linear-gradient(135deg, #edf7ff, #ffffff);
+}
+
+/* Lien retour. */
+.back-link {
+  display: inline-flex;
+  margin-bottom: 24px;
+  color: var(--blue-main);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+/* Carte détail annonce. */
+.annonce-details-card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 34px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Image détail annonce. */
+.annonce-details-image {
+  min-height: 430px;
+  display: grid;
+  place-items: center;
+  font-size: 96px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, #edf7ff, #dbeafe);
+}
+
+/* Titre détail annonce. */
+.annonce-details-content h1 {
+  font-family: "Playfair Display", serif;
+  color: var(--blue-night);
+  font-size: 48px;
+  margin: 16px 0 12px;
+}
+
+/* Prix détail annonce. */
+.annonce-price {
+  display: block;
+  color: var(--blue-dark);
+  font-size: 30px;
+  margin-bottom: 18px;
+}
+
+/* Description détail annonce. */
+.annonce-description {
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+/* Grille infos détail. */
+.annonce-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+
+/* Bloc info détail. */
+.annonce-info-grid div {
+  background: var(--blue-ice);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+/* Label info détail. */
+.annonce-info-grid span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+/* Valeur info détail. */
+.annonce-info-grid strong {
+  color: var(--blue-dark);
+}
+
+/* Responsive annonces. */
+@media (max-width: 1000px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .annonce-details-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive mobile annonces. */
+@media (max-width: 650px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .annonces-header h1,
+  .annonce-details-content h1 {
+    font-size: 36px;
+  }
+
+  .annonce-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Page de création d'annonce. */
+.create-annonce-page {
+  min-height: 100vh;
+  padding: 70px 7%;
+  background: linear-gradient(135deg, #edf7ff, #ffffff);
+}
+
+/* En-tête création annonce. */
+.create-annonce-header {
+  margin-bottom: 28px;
+}
+
+/* Titre création annonce. */
+.create-annonce-header h1 {
+  font-family: "Playfair Display", serif;
+  color: var(--blue-night);
+  font-size: 52px;
+  margin: 0 0 12px;
+}
+
+/* Description création annonce. */
+.create-annonce-header p {
+  color: var(--text-muted);
+  font-size: 17px;
+  max-width: 760px;
+}
+
+/* Carte du formulaire annonce. */
+.create-annonce-card {
+  max-width: 980px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Deux colonnes dans le formulaire. */
+.form-two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* Select du formulaire admin et annonce. */
+.admin-field select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 15px;
+  color: var(--blue-night);
+  background: white;
+  outline: none;
+}
+
+/* Focus du select. */
+.admin-field select:focus {
+  border-color: var(--blue-main);
+  box-shadow: 0 0 0 4px rgba(29, 111, 220, 0.14);
+}
+
+/* Note dans le formulaire. */
+.create-annonce-note {
+  color: var(--blue-dark);
+  background: var(--blue-ice);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+/* Responsive formulaire annonce. */
+@media (max-width: 750px) {
+  .form-two-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .create-annonce-header h1 {
+    font-size: 38px;
+  }
+}
+
+/* Page Mes annonces. */
+.my-annonces-page {
+  min-height: 100vh;
+  padding: 70px 7%;
+  background: linear-gradient(135deg, #edf7ff, #ffffff);
+}
+
+/* En-tête Mes annonces. */
+.my-annonces-header {
+  margin-bottom: 30px;
+}
+
+/* Titre Mes annonces. */
+.my-annonces-header h1 {
+  font-family: "Playfair Display", serif;
+  color: var(--blue-night);
+  font-size: 52px;
+  margin: 0 0 12px;
+}
+
+/* Texte Mes annonces. */
+.my-annonces-header p {
+  color: var(--text-muted);
+  font-size: 17px;
+  max-width: 760px;
+  margin-bottom: 22px;
+}
+
+/* Grille Mes annonces. */
+.my-annonces-grid {
+  display: grid;
+  gap: 22px;
+}
+
+/* Carte Mes annonces. */
+.my-annonce-card {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Image temporaire Mes annonces. */
+.my-annonce-image {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  font-size: 60px;
+  background: linear-gradient(135deg, #edf7ff, #dbeafe);
+  border-radius: 22px;
+}
+
+/* Contenu Mes annonces. */
+.my-annonce-content h2 {
+  color: var(--blue-night);
+  margin: 14px 0 8px;
+}
+
+/* Description Mes annonces. */
+.my-annonce-content p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Haut de carte Mes annonces. */
+.my-annonce-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Prix Mes annonces. */
+.my-annonce-price {
+  display: block;
+  color: var(--blue-dark);
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+/* Actions Mes annonces. */
+.my-annonce-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+/* Bouton danger. */
+.btn-danger {
+  border: none;
+  background: #b91c1c;
+  color: white;
+}
+
+/* Survol bouton danger. */
+.btn-danger:hover {
+  background: #991b1b;
+}
+
+/* Responsive Mes annonces. */
+@media (max-width: 800px) {
+  .my-annonce-card {
+    grid-template-columns: 1fr;
+  }
+
+  .my-annonces-header h1 {
+    font-size: 38px;
+  }
+}
+
+/* Image réelle dans une carte annonce. */
+.product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 24px 24px 0 0;
+}
+
+/* Image réelle dans le détail annonce. */
+.annonce-details-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 26px;
+}
+
+/* Liste des miniatures. */
+.annonce-thumbnails {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+/* Miniature photo annonce. */
+.annonce-thumbnails img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+/* Liste des photos choisies. */
+.selected-photos-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+/* Nom d'une photo choisie. */
+.selected-photos-list span {
+  background: var(--blue-ice);
+  color: var(--blue-dark);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Image réelle dans Mes annonces. */
+.my-annonce-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+/* Liste des photos dans Mes annonces. */
+.my-annonce-photos {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+/* Élément photo dans Mes annonces. */
+.my-annonce-photo-item {
+  position: relative;
+  width: 92px;
+  display: grid;
+  gap: 6px;
+}
+
+/* Image miniature dans Mes annonces. */
+.my-annonce-photo-item img {
+  width: 92px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+/* Badge photo principale. */
+.my-annonce-photo-item span {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: var(--blue-main);
+  color: white;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 4px 6px;
+  border-radius: 999px;
+}
+
+/* Bouton supprimer photo. */
+.my-annonce-photo-item button {
+  border: none;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 7px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* Survol bouton supprimer photo. */
+.my-annonce-photo-item button:hover {
+  background: #fecaca;
+}
+
+/* Bloc IA dans Mes annonces. */
+.my-annonce-ai {
+  margin-top: 14px;
+  background: var(--blue-ice);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+/* Ligne info IA. */
+.my-annonce-ai span {
+  color: var(--blue-dark);
+  font-weight: 900;
+}
+
+/* Motif IA. */
+.my-annonce-ai p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* On définit la grille des annonces en réexamen. */
+.admin-review-grid {
+  display: grid;
+  gap: 24px;
+}
+
+/* On définit la carte d'une annonce en réexamen. */
+.admin-review-card {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* On définit la zone image de la carte. */
+.admin-review-image {
+  min-height: 190px;
+  border-radius: 22px;
+  background: var(--blue-ice);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* On définit l'image de l'annonce. */
+.admin-review-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* On définit l'icône affichée si aucune image n'est trouvée. */
+.admin-review-image span {
+  font-size: 48px;
+}
+
+/* On définit la zone de contenu de la carte. */
+.admin-review-content {
+  display: grid;
+  gap: 16px;
+}
+
+/* On définit le haut de la carte. */
+.admin-review-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* On définit le titre de l'annonce. */
+.admin-review-top h2 {
+  margin: 0;
+  color: var(--blue-night);
+}
+
+/* On définit la description de l'annonce. */
+.admin-review-description {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* On définit la zone des détails de l'annonce. */
+.admin-review-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* On définit chaque détail de l'annonce. */
+.admin-review-details span {
+  background: var(--blue-ice);
+  color: var(--blue-dark);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 800;
+}
+
+/* On définit le bloc d'analyse IA. */
+.admin-review-ai {
+  display: grid;
+  gap: 8px;
+  background: #f8fbff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 16px;
+}
+
+/* On définit le titre du bloc IA. */
+.admin-review-ai strong {
+  color: var(--blue-night);
+}
+
+/* On définit les lignes du bloc IA. */
+.admin-review-ai span {
+  color: var(--blue-dark);
+  font-weight: 800;
+}
+
+/* On définit le paragraphe du bloc IA. */
+.admin-review-ai p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* On définit la zone des boutons. */
+.admin-review-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* On adapte la carte sur les petits écrans. */
+@media (max-width: 800px) {
+  /* On passe la carte sur une seule colonne. */
+  .admin-review-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* On stylise le menu latéral administrateur. */
+.admin-sidebar {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 22px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* On stylise le titre du menu admin. */
+.admin-sidebar h2 {
+  margin: 0 0 18px;
+  color: var(--blue-night);
+  font-size: 22px;
+}
+
+/* On organise les liens du menu admin. */
+.admin-sidebar-links {
+  display: grid;
+  gap: 10px;
+}
+
+/* On stylise chaque lien du menu admin. */
+.admin-sidebar-link {
+  text-decoration: none;
+  color: var(--blue-dark);
+  font-weight: 900;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--blue-ice);
+}
+
+/* On stylise le lien au survol. */
+.admin-sidebar-link:hover {
+  color: #ffffff;
+  background: var(--blue-primary);
+}
+
+/* On organise les pages administrateur avec une sidebar et un contenu principal. */
+.admin-page-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* On définit la zone principale du contenu admin. */
+.admin-page-content {
+  display: grid;
+  gap: 24px;
+}
+
+/* On adapte la page admin sur les petits écrans. */
+@media (max-width: 900px) {
+  /* On met la sidebar et le contenu en une seule colonne. */
+  .admin-page-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* On organise les choix principaux de l'espace membre. */
+.member-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+/* On stylise une carte de choix membre. */
+.member-choice-card {
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* On ajoute un effet au survol de la carte. */
+.member-choice-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* On stylise l'icône de la carte. */
+.member-choice-icon {
+  font-size: 44px;
+}
+
+/* On stylise le titre de la carte. */
+.member-choice-card h2 {
+  margin: 0;
+  color: var(--blue-night);
+}
+
+/* On stylise la description de la carte. */
+.member-choice-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* On stylise le texte d'action de la carte. */
+.member-choice-card strong {
+  color: var(--blue-primary);
+}
+
+/* On organise les actions de l'espace vendeur ou acheteur. */
+.seller-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+/* On stylise une carte d'action vendeur ou acheteur. */
+.seller-action-card {
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 12px;
+}
+
+/* On stylise l'icône de la carte d'action. */
+.seller-action-card span {
+  font-size: 38px;
+}
+
+/* On stylise le titre de la carte d'action. */
+.seller-action-card h2 {
+  margin: 0;
+  color: var(--blue-night);
+}
+
+/* On stylise la description de la carte d'action. */
+.seller-action-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* On stylise une action non encore disponible. */
+.seller-action-disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* On adapte les cartes sur les petits écrans. */
+@media (max-width: 800px) {
+  /* On met les choix membre sur une seule colonne. */
+  .member-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* On met les actions vendeur sur une seule colonne. */
+  .seller-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Bloc principal de la demande d'achat */
+.purchase-request-box {
+  /* On ajoute un espace au-dessus du bloc. */
+  margin-top: 32px;
+
+  /* On ajoute de l'espace à l'intérieur du bloc. */
+  padding: 24px;
+
+  /* On met un fond bleu très clair. */
+  background: #edf7ff;
+
+  /* On arrondit les coins du bloc. */
+  border-radius: 18px;
+
+  /* On ajoute une bordure légère. */
+  border: 1px solid rgba(29, 111, 220, 0.18);
+
+  /* On ajoute une ombre douce. */
+  box-shadow: 0 12px 30px rgba(7, 31, 58, 0.08);
+}
+
+/* Titre du bloc de demande d'achat */
+.purchase-request-box h2 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On ajoute un petit espace en bas. */
+  margin-bottom: 10px;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+
+  /* On utilise une taille lisible. */
+  font-size: 24px;
+}
+
+/* Petit texte explicatif */
+.purchase-request-box p {
+  /* On ajoute un espace sous le paragraphe. */
+  margin-bottom: 16px;
+
+  /* On met une couleur douce. */
+  color: #39546b;
+
+  /* On améliore la lisibilité. */
+  line-height: 1.6;
+}
+
+/* Label du champ message */
+.purchase-request-box label {
+  /* On affiche le label comme un bloc. */
+  display: block;
+
+  /* On ajoute un espace sous le label. */
+  margin-bottom: 8px;
+
+  /* On met le texte en gras. */
+  font-weight: 700;
+
+  /* On met une couleur foncée. */
+  color: #071f3a;
+}
+
+/* Zone de texte du message */
+.form-textarea {
+  /* On prend toute la largeur disponible. */
+  width: 100%;
+
+  /* On donne une hauteur minimale. */
+  min-height: 120px;
+
+  /* On ajoute de l'espace à l'intérieur. */
+  padding: 14px 16px;
+
+  /* On met une bordure claire. */
+  border: 1px solid rgba(11, 58, 103, 0.2);
+
+  /* On arrondit les coins. */
+  border-radius: 14px;
+
+  /* On garde la même police que le site. */
+  font-family: inherit;
+
+  /* On rend le texte confortable à lire. */
+  font-size: 15px;
+
+  /* On empêche le redimensionnement horizontal. */
+  resize: vertical;
+
+  /* On enlève le contour par défaut. */
+  outline: none;
+
+  /* On ajoute une transition douce. */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Effet quand l'utilisateur clique dans la zone de texte */
+.form-textarea:focus {
+  /* On met une bordure bleue. */
+  border-color: #1d6fdc;
+
+  /* On ajoute un halo bleu léger. */
+  box-shadow: 0 0 0 4px rgba(29, 111, 220, 0.12);
+}
+
+/* Message d'erreur */
+.form-error {
+  /* On ajoute un espace au-dessus. */
+  margin-top: 12px;
+
+  /* On met la couleur rouge. */
+  color: #c62828;
+
+  /* On met le texte en gras. */
+  font-weight: 700;
+}
+
+/* Message de succès */
+.form-success {
+  /* On ajoute un espace au-dessus. */
+  margin-top: 12px;
+
+  /* On met une couleur verte. */
+  color: #1b7f3a;
+
+  /* On met le texte en gras. */
+  font-weight: 700;
+}
+
+/* Bouton dans le bloc demande d'achat */
+.purchase-request-box .btn {
+  /* On ajoute un espace au-dessus du bouton. */
+  margin-top: 16px;
+}
+
+/* Page principale des demandes d'achat */
+.buyer-requests-page {
+  /* On limite la largeur de la page. */
+  max-width: 1100px;
+
+  /* On centre la page horizontalement. */
+  margin: 0 auto;
+
+  /* On ajoute de l'espace autour du contenu. */
+  padding: 40px 20px;
+}
+
+/* En-tête de la page des demandes */
+.buyer-requests-header {
+  /* On ajoute un espace en bas. */
+  margin-bottom: 30px;
+
+  /* On ajoute un fond clair. */
+  background: #edf7ff;
+
+  /* On ajoute une bordure légère. */
+  border: 1px solid rgba(29, 111, 220, 0.16);
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 28px;
+
+  /* On ajoute une ombre douce. */
+  box-shadow: 0 12px 30px rgba(7, 31, 58, 0.08);
+}
+
+/* Titre de l'en-tête */
+.buyer-requests-header h1 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 10px;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+}
+
+/* Texte de l'en-tête */
+.buyer-requests-header p {
+  /* On ajoute un espace en bas. */
+  margin-bottom: 20px;
+
+  /* On met une couleur douce. */
+  color: #39546b;
+
+  /* On améliore la lisibilité. */
+  line-height: 1.6;
+}
+
+/* Message simple de page */
+.page-message {
+  /* On ajoute de l'espace intérieur. */
+  padding: 18px;
+
+  /* On met un fond bleu clair. */
+  background: #edf7ff;
+
+  /* On arrondit les coins. */
+  border-radius: 16px;
+
+  /* On met la couleur principale. */
+  color: #0b3a67;
+
+  /* On met le texte en gras. */
+  font-weight: 700;
+}
+
+/* Bloc vide */
+.empty-box {
+  /* On centre le contenu. */
+  text-align: center;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 40px 24px;
+
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute une bordure claire. */
+  border: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On ajoute une ombre douce. */
+  box-shadow: 0 12px 30px rgba(7, 31, 58, 0.08);
+}
+
+/* Liste des demandes */
+.requests-list {
+  /* On affiche les cartes en colonne. */
+  display: flex;
+
+  /* On met les cartes verticalement. */
+  flex-direction: column;
+
+  /* On ajoute un espace entre les cartes. */
+  gap: 18px;
+}
+
+/* Carte d'une demande */
+.request-card {
+  /* On affiche l'image et le contenu côte à côte. */
+  display: flex;
+
+  /* On ajoute un espace entre l'image et le contenu. */
+  gap: 20px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 20px;
+
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On ajoute une bordure claire. */
+  border: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute une ombre douce. */
+  box-shadow: 0 12px 30px rgba(7, 31, 58, 0.08);
+}
+
+/* Zone image de la carte */
+.request-card-image {
+  /* On fixe la largeur. */
+  width: 150px;
+
+  /* On fixe la hauteur. */
+  height: 130px;
+
+  /* On empêche l'image de rétrécir. */
+  flex-shrink: 0;
+
+  /* On met un fond clair. */
+  background: #edf7ff;
+
+  /* On arrondit les coins. */
+  border-radius: 18px;
+
+  /* On cache ce qui dépasse. */
+  overflow: hidden;
+
+  /* On centre le placeholder. */
+  display: flex;
+
+  /* On centre horizontalement. */
+  align-items: center;
+
+  /* On centre verticalement. */
+  justify-content: center;
+
+  /* On agrandit le placeholder. */
+  font-size: 38px;
+}
+
+/* Image de l'annonce */
+.request-card-image img {
+  /* L'image prend toute la largeur. */
+  width: 100%;
+
+  /* L'image prend toute la hauteur. */
+  height: 100%;
+
+  /* L'image remplit le cadre sans déformation. */
+  object-fit: cover;
+}
+
+/* Contenu de la carte */
+.request-card-content {
+  /* Le contenu prend l'espace restant. */
+  flex: 1;
+}
+
+/* Titre de l'annonce */
+.request-card-content h2 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On ajoute un petit espace en bas. */
+  margin-bottom: 8px;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+}
+
+/* Prix de l'annonce */
+.request-price {
+  /* On met le texte en gras. */
+  font-weight: 800;
+
+  /* On met la couleur principale. */
+  color: #1d6fdc;
+}
+
+/* Message envoyé */
+.request-message {
+  /* On ajoute de l'espace intérieur. */
+  padding: 12px 14px;
+
+  /* On met un fond bleu très clair. */
+  background: #edf7ff;
+
+  /* On arrondit les coins. */
+  border-radius: 14px;
+
+  /* On met une couleur lisible. */
+  color: #39546b;
+}
+
+/* Badge de statut */
+.request-status {
+  /* On affiche comme un petit badge. */
+  display: inline-block;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 7px 12px;
+
+  /* On arrondit fortement le badge. */
+  border-radius: 999px;
+
+  /* On met le texte en gras. */
+  font-weight: 800;
+
+  /* On met une taille simple. */
+  font-size: 14px;
+
+  /* On ajoute un espace à droite. */
+  margin-right: 12px;
+
+  /* On met un fond par défaut. */
+  background: #edf7ff;
+
+  /* On met une couleur par défaut. */
+  color: #0b3a67;
+}
+
+/* Statut en attente */
+.request-status-pending {
+  /* On met un fond orange clair. */
+  background: #fff4df;
+
+  /* On met une couleur orange foncée. */
+  color: #9a5a00;
+}
+
+/* Statut accepté */
+.request-status-accepted {
+  /* On met un fond vert clair. */
+  background: #e8f8ee;
+
+  /* On met une couleur verte. */
+  color: #1b7f3a;
+}
+
+/* Statut refusé */
+.request-status-refused {
+  /* On met un fond rouge clair. */
+  background: #fdecec;
+
+  /* On met une couleur rouge. */
+  color: #c62828;
+}
+
+/* Statut annulé */
+.request-status-cancelled {
+  /* On met un fond gris clair. */
+  background: #eef2f5;
+
+  /* On met une couleur gris foncé. */
+  color: #53616d;
+}
+
+/* Lien vers l'annonce */
+.request-link {
+  /* On affiche le lien en ligne. */
+  display: inline-block;
+
+  /* On ajoute un espace en haut. */
+  margin-top: 14px;
+
+  /* On met la couleur principale. */
+  color: #1d6fdc;
+
+  /* On enlève le soulignement. */
+  text-decoration: none;
+
+  /* On met le texte en gras. */
+  font-weight: 800;
+}
+
+/* Effet au survol du lien */
+.request-link:hover {
+  /* On souligne le lien au survol. */
+  text-decoration: underline;
+}
+
+/* Adaptation mobile */
+@media (max-width: 700px) {
+  /* Carte d'une demande sur mobile */
+  .request-card {
+    /* On passe l'image au-dessus du contenu. */
+    flex-direction: column;
+  }
+
+  /* Image sur mobile */
+  .request-card-image {
+    /* L'image prend toute la largeur. */
+    width: 100%;
+
+    /* On augmente un peu la hauteur. */
+    height: 210px;
+  }
+}
+
+/* Zone des actions d'une demande */
+.request-actions {
+  /* On affiche les actions sur une ligne. */
+  display: flex;
+
+  /* On aligne les actions verticalement. */
+  align-items: center;
+
+  /* On ajoute un espace entre les actions. */
+  gap: 14px;
+
+  /* On autorise le retour à la ligne sur petit écran. */
+  flex-wrap: wrap;
+
+  /* On ajoute un espace au-dessus. */
+  margin-top: 14px;
+}
+
+/* Bouton rouge pour annuler */
+.btn-danger {
+  /* On met un fond rouge. */
+  background: #c62828;
+
+  /* On met le texte en blanc. */
+  color: #ffffff;
+
+  /* On enlève la bordure. */
+  border: none;
+}
+
+/* Effet au survol du bouton rouge */
+.btn-danger:hover {
+  /* On assombrit légèrement le rouge. */
+  background: #a91f1f;
+}
+
+/* Bouton rouge désactivé */
+.btn-danger:disabled {
+  /* On réduit l'opacité. */
+  opacity: 0.65;
+
+  /* On bloque le curseur normal. */
+  cursor: not-allowed;
+}
+
+/* Page principale des demandes reçues */
+.seller-requests-page {
+  /* On limite la largeur de la page. */
+  max-width: 1100px;
+
+  /* On centre la page horizontalement. */
+  margin: 0 auto;
+
+  /* On ajoute de l'espace autour du contenu. */
+  padding: 40px 20px;
+}
+
+/* En-tête de la page des demandes reçues */
+.seller-requests-header {
+  /* On ajoute un espace en bas. */
+  margin-bottom: 30px;
+
+  /* On ajoute un fond bleu très clair. */
+  background: #edf7ff;
+
+  /* On ajoute une bordure légère. */
+  border: 1px solid rgba(29, 111, 220, 0.16);
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 28px;
+
+  /* On ajoute une ombre douce. */
+  box-shadow: 0 12px 30px rgba(7, 31, 58, 0.08);
+}
+
+/* Titre de l'en-tête vendeur */
+.seller-requests-header h1 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 10px;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+}
+
+/* Texte de l'en-tête vendeur */
+.seller-requests-header p {
+  /* On ajoute un espace en bas. */
+  margin-bottom: 20px;
+
+  /* On met une couleur douce. */
+  color: #39546b;
+
+  /* On améliore la lisibilité. */
+  line-height: 1.6;
+}
+
+/* Bouton vert pour accepter */
+.btn-success {
+  /* On met un fond vert. */
+  background: #1b7f3a;
+
+  /* On met le texte en blanc. */
+  color: #ffffff;
+
+  /* On enlève la bordure. */
+  border: none;
+}
+
+/* Effet au survol du bouton vert */
+.btn-success:hover {
+  /* On assombrit légèrement le vert. */
+  background: #14642d;
+}
+
+/* Bouton vert désactivé */
+.btn-success:disabled {
+  /* On réduit l'opacité. */
+  opacity: 0.65;
+
+  /* On bloque le curseur normal. */
+  cursor: not-allowed;
+}
+
+/* Bouton rouge pour refuser ou annuler */
+.btn-danger {
+  /* On met un fond rouge. */
+  background: #c62828;
+
+  /* On met le texte en blanc. */
+  color: #ffffff;
+
+  /* On enlève la bordure. */
+  border: none;
+}
+
+/* Effet au survol du bouton rouge */
+.btn-danger:hover {
+  /* On assombrit légèrement le rouge. */
+  background: #a91f1f;
+}
+
+/* Bouton rouge désactivé */
+.btn-danger:disabled {
+  /* On réduit l'opacité. */
+  opacity: 0.65;
+
+  /* On bloque le curseur normal. */
+  cursor: not-allowed;
+}
+
+/* Page principale de conversation */
+.conversation-page {
+  /* On limite la largeur de la page. */
+  max-width: 1000px;
+
+  /* On centre la page. */
+  margin: 0 auto;
+
+  /* On ajoute de l'espace autour du contenu. */
+  padding: 40px 20px;
+}
+
+/* En-tête de la conversation */
+.conversation-header {
+  /* On ajoute un espace en bas. */
+  margin-bottom: 30px;
+
+  /* On ajoute un fond bleu clair. */
+  background: #edf7ff;
+
+  /* On ajoute une bordure légère. */
+  border: 1px solid rgba(29, 111, 220, 0.16);
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 28px;
+
+  /* On ajoute une ombre douce. */
+  box-shadow: 0 12px 30px rgba(7, 31, 58, 0.08);
+}
+
+/* Titre de l'en-tête */
+.conversation-header h1 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 10px;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+}
+
+/* Texte de l'en-tête */
+.conversation-header p {
+  /* On ajoute un espace en bas. */
+  margin-bottom: 20px;
+
+  /* On met une couleur douce. */
+  color: #39546b;
+
+  /* On améliore la lisibilité. */
+  line-height: 1.6;
+}
+
+/* Bloc principal de la conversation */
+.conversation-box {
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On ajoute une bordure claire. */
+  border: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 24px;
+
+  /* On ajoute une ombre douce. */
+  box-shadow: 0 12px 30px rgba(7, 31, 58, 0.08);
+}
+
+/* Informations de la conversation */
+.conversation-info {
+  /* On ajoute un espace en bas. */
+  margin-bottom: 24px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 18px;
+
+  /* On met un fond bleu très clair. */
+  background: #edf7ff;
+
+  /* On arrondit les coins. */
+  border-radius: 18px;
+}
+
+/* Titre de l'annonce */
+.conversation-info h2 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+}
+
+/* Liste des messages */
+.messages-list {
+  /* On affiche les messages en colonne. */
+  display: flex;
+
+  /* On met les messages verticalement. */
+  flex-direction: column;
+
+  /* On ajoute un espace entre les messages. */
+  gap: 14px;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 24px;
+}
+
+/* Message vide */
+.empty-message {
+  /* On ajoute de l'espace intérieur. */
+  padding: 18px;
+
+  /* On met un fond clair. */
+  background: #edf7ff;
+
+  /* On arrondit les coins. */
+  border-radius: 16px;
+
+  /* On met une couleur lisible. */
+  color: #39546b;
+}
+
+/* Bloc d'un message */
+.message-item {
+  /* On limite la largeur du message. */
+  max-width: 75%;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 14px 16px;
+
+  /* On arrondit les coins. */
+  border-radius: 18px;
+
+  /* On ajoute une bordure claire. */
+  border: 1px solid rgba(11, 58, 103, 0.1);
+}
+
+/* Message envoyé par l'utilisateur connecté */
+.message-mine {
+  /* On aligne le message à droite. */
+  align-self: flex-end;
+
+  /* On met un fond bleu. */
+  background: #1d6fdc;
+
+  /* On met le texte en blanc. */
+  color: #ffffff;
+}
+
+/* Message reçu */
+.message-other {
+  /* On aligne le message à gauche. */
+  align-self: flex-start;
+
+  /* On met un fond bleu clair. */
+  background: #edf7ff;
+
+  /* On met le texte en bleu foncé. */
+  color: #071f3a;
+}
+
+/* Nom dans un message */
+.message-item strong {
+  /* On affiche le nom sur sa propre ligne. */
+  display: block;
+
+  /* On ajoute un petit espace en bas. */
+  margin-bottom: 6px;
+}
+
+/* Texte du message */
+.message-item p {
+  /* On enlève les grandes marges. */
+  margin: 0 0 8px 0;
+
+  /* On améliore la lisibilité. */
+  line-height: 1.5;
+}
+
+/* Date du message */
+.message-item span {
+  /* On réduit la taille du texte. */
+  font-size: 13px;
+
+  /* On rend la date un peu transparente. */
+  opacity: 0.8;
+}
+
+/* Formulaire d'envoi de message */
+.message-form {
+  /* On ajoute une bordure en haut. */
+  border-top: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On ajoute un espace au-dessus. */
+  padding-top: 20px;
+}
+
+/* Label du formulaire */
+.message-form label {
+  /* On affiche le label comme un bloc. */
+  display: block;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 8px;
+
+  /* On met le texte en gras. */
+  font-weight: 700;
+
+  /* On met une couleur foncée. */
+  color: #071f3a;
+}
+
+/* Bouton du formulaire */
+.message-form .btn {
+  /* On ajoute un espace au-dessus. */
+  margin-top: 14px;
+}
+
+/* Adaptation mobile */
+@media (max-width: 700px) {
+  /* Message sur mobile */
+  .message-item {
+    /* Le message prend presque toute la largeur. */
+    max-width: 92%;
+  }
+}
+
+/* Badge qui affiche l'état de la connexion SignalR */
+.connection-status {
+  /* On affiche le badge sur sa propre ligne. */
+  display: inline-block;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 18px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 8px 14px;
+
+  /* On arrondit fortement le badge. */
+  border-radius: 999px;
+
+  /* On met un fond bleu clair. */
+  background: #edf7ff;
+
+  /* On met une couleur bleue foncée. */
+  color: #0b3a67;
+
+  /* On met le texte en gras. */
+  font-weight: 800;
+
+  /* On ajoute une bordure légère. */
+  border: 1px solid rgba(29, 111, 220, 0.18);
+}
+
+/* Bloc de signalement d'annonce */
+.report-annonce-box {
+  /* On ajoute un espace au-dessus. */
+  margin-top: 28px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 22px;
+
+  /* On met un fond clair. */
+  background: #ffffff;
+
+  /* On ajoute une bordure discrète. */
+  border: 1px solid rgba(11, 58, 103, 0.14);
+
+  /* On arrondit les coins. */
+  border-radius: 18px;
+
+  /* On ajoute une ombre légère. */
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Titre du bloc de signalement */
+.report-annonce-box h2 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On ajoute un petit espace en bas. */
+  margin-bottom: 8px;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+
+  /* On garde une taille moyenne. */
+  font-size: 22px;
+}
+
+/* Texte du bloc de signalement */
+.report-annonce-box p {
+  /* On améliore la lisibilité. */
+  line-height: 1.6;
+
+  /* On met une couleur douce. */
+  color: #39546b;
+}
+
+/* Formulaire de signalement */
+.report-form {
+  /* On ajoute un espace au-dessus du formulaire. */
+  margin-top: 18px;
+
+  /* On affiche les champs verticalement. */
+  display: flex;
+
+  /* On met les éléments en colonne. */
+  flex-direction: column;
+
+  /* On ajoute un espace entre les champs. */
+  gap: 12px;
+}
+
+/* Label du formulaire de signalement */
+.report-form label {
+  /* On met le texte en gras. */
+  font-weight: 700;
+
+  /* On met une couleur foncée. */
+  color: #071f3a;
+}
+
+/* Liste déroulante simple */
+.form-select {
+  /* On prend toute la largeur disponible. */
+  width: 100%;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 13px 15px;
+
+  /* On ajoute une bordure claire. */
+  border: 1px solid rgba(11, 58, 103, 0.2);
+
+  /* On arrondit les coins. */
+  border-radius: 14px;
+
+  /* On garde la police du site. */
+  font-family: inherit;
+
+  /* On rend le texte lisible. */
+  font-size: 15px;
+
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On enlève le contour par défaut. */
+  outline: none;
+}
+
+/* Effet focus sur la liste */
+.form-select:focus {
+  /* On met une bordure bleue. */
+  border-color: #1d6fdc;
+
+  /* On ajoute un halo léger. */
+  box-shadow: 0 0 0 4px rgba(29, 111, 220, 0.12);
+}
+
+/* Bloc de signalement utilisateur dans la conversation */
+.report-user-box {
+  /* On ajoute un espace au-dessus. */
+  margin-top: 18px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding-top: 16px;
+
+  /* On ajoute une séparation discrète. */
+  border-top: 1px solid rgba(11, 58, 103, 0.12);
+}
+
+/* Page admin avec menu latéral */
+.admin-layout-page {
+  /* On affiche le menu et le contenu côte à côte. */
+  display: flex;
+
+  /* On ajoute un espace entre le menu et le contenu. */
+  gap: 24px;
+
+  /* On limite la largeur globale. */
+  max-width: 1250px;
+
+  /* On centre la page. */
+  margin: 0 auto;
+
+  /* On ajoute de l'espace autour. */
+  padding: 40px 20px;
+}
+
+/* Contenu principal admin */
+.admin-content-page {
+  /* Le contenu prend l'espace restant. */
+  flex: 1;
+
+  /* On évite que le contenu déborde. */
+  min-width: 0;
+}
+
+/* En-tête admin */
+.admin-page-header {
+  /* On ajoute un fond bleu clair. */
+  background: #edf7ff;
+
+  /* On ajoute une bordure légère. */
+  border: 1px solid rgba(29, 111, 220, 0.16);
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 28px;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 28px;
+
+  /* On ajoute une ombre douce. */
+  box-shadow: 0 12px 30px rgba(7, 31, 58, 0.08);
+}
+
+/* Titre admin */
+.admin-page-header h1 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+}
+
+/* Section de signalements */
+.admin-report-section {
+  /* On ajoute un espace en haut. */
+  margin-top: 26px;
+}
+
+/* Titre de section */
+.admin-report-section h2 {
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 16px;
+}
+
+/* Liste des signalements */
+.admin-report-list {
+  /* On affiche les cartes en colonne. */
+  display: flex;
+
+  /* On place les cartes verticalement. */
+  flex-direction: column;
+
+  /* On ajoute un espace entre les cartes. */
+  gap: 16px;
+}
+
+/* Carte de signalement */
+.admin-report-card {
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On ajoute une bordure claire. */
+  border: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On arrondit les coins. */
+  border-radius: 20px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 22px;
+
+  /* On ajoute une ombre légère. */
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Titre de carte */
+.admin-report-card h3 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On met la couleur bleu foncé. */
+  color: #071f3a;
+}
+
+/* Détails du signalement */
+.admin-report-details {
+  /* On affiche les informations en grille. */
+  display: grid;
+
+  /* On crée des colonnes adaptables. */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+  /* On ajoute un espace entre les informations. */
+  gap: 10px;
+
+  /* On ajoute un espace vertical. */
+  margin: 16px 0;
+}
+
+/* Élément de détail */
+.admin-report-details span {
+  /* On met un fond bleu clair. */
+  background: #edf7ff;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 10px 12px;
+
+  /* On arrondit les coins. */
+  border-radius: 12px;
+
+  /* On met une couleur lisible. */
+  color: #0b3a67;
+
+  /* On met le texte en gras. */
+  font-weight: 700;
+}
+
+/* Actions du signalement */
+.admin-report-actions {
+  /* On affiche les boutons en ligne. */
+  display: flex;
+
+  /* On ajoute un espace entre les boutons. */
+  gap: 12px;
+
+  /* On autorise le retour à la ligne. */
+  flex-wrap: wrap;
+
+  /* On ajoute un espace au-dessus. */
+  margin-top: 16px;
+}
+
+/* Version mobile */
+@media (max-width: 800px) {
+  /* Page admin sur mobile */
+  .admin-layout-page {
+    /* On place le menu au-dessus. */
+    flex-direction: column;
+  }
+}
+
+/* Section de gestion des membres */
+.admin-users-section {
+  /* On ajoute un espace au-dessus. */
+  margin-top: 24px;
+}
+
+/* Conteneur du tableau admin */
+.admin-table-wrapper {
+  /* On permet le scroll horizontal sur petit écran. */
+  overflow-x: auto;
+
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On ajoute une bordure claire. */
+  border: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On arrondit les coins. */
+  border-radius: 20px;
+
+  /* On ajoute une ombre légère. */
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Tableau des membres */
+.admin-users-table {
+  /* Le tableau prend toute la largeur. */
+  width: 100%;
+
+  /* On supprime les espaces entre bordures. */
+  border-collapse: collapse;
+
+  /* On garde une largeur minimale pour éviter l'écrasement. */
+  min-width: 900px;
+}
+
+/* Cellules du tableau */
+.admin-users-table th,
+.admin-users-table td {
+  /* On ajoute de l'espace intérieur. */
+  padding: 14px 16px;
+
+  /* On aligne le texte à gauche. */
+  text-align: left;
+
+  /* On ajoute une bordure basse légère. */
+  border-bottom: 1px solid rgba(11, 58, 103, 0.1);
+}
+
+/* En-tête du tableau */
+.admin-users-table th {
+  /* On met un fond bleu clair. */
+  background: #edf7ff;
+
+  /* On met une couleur bleu foncé. */
+  color: #071f3a;
+
+  /* On met le texte en gras. */
+  font-weight: 800;
+}
+
+/* Dernière ligne du tableau */
+.admin-users-table tr:last-child td {
+  /* On enlève la bordure basse. */
+  border-bottom: none;
+}
+
+/* Badge de statut utilisateur */
+.user-status {
+  /* On affiche le statut comme un badge. */
+  display: inline-block;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 6px 10px;
+
+  /* On arrondit le badge. */
+  border-radius: 999px;
+
+  /* On met le texte en gras. */
+  font-weight: 800;
+
+  /* On réduit légèrement la taille. */
+  font-size: 13px;
+}
+
+/* Badge compte actif */
+.user-status-active {
+  /* On met un fond vert clair. */
+  background: rgba(46, 125, 50, 0.12);
+
+  /* On met une couleur verte. */
+  color: #2e7d32;
+}
+
+/* Badge compte suspendu */
+.user-status-suspended {
+  /* On met un fond rouge clair. */
+  background: rgba(198, 40, 40, 0.12);
+
+  /* On met une couleur rouge. */
+  color: #c62828;
+}
+
+/* Page d'abonnement vendeur */
+.subscription-page {
+  /* On garde l'espace habituel des pages. */
+  min-height: 70vh;
+}
+
+/* Carte de l'abonnement actuel */
+.my-subscription-card {
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On ajoute une bordure douce. */
+  border: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 24px;
+
+  /* On ajoute une ombre légère. */
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 30px;
+}
+
+/* Titre de la carte abonnement */
+.my-subscription-card h2 {
+  /* On enlève la marge du haut. */
+  margin-top: 0;
+
+  /* On met une couleur foncée. */
+  color: #071f3a;
+}
+
+/* Grille des statistiques */
+.subscription-stats-grid {
+  /* On affiche les informations en grille. */
+  display: grid;
+
+  /* On crée des colonnes adaptables. */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+  /* On ajoute un espace entre les blocs. */
+  gap: 14px;
+
+  /* On ajoute un espace au-dessus. */
+  margin-top: 18px;
+}
+
+/* Bloc statistique */
+.subscription-stat {
+  /* On met un fond bleu clair. */
+  background: #edf7ff;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 16px;
+
+  /* On arrondit les coins. */
+  border-radius: 16px;
+}
+
+/* Libellé statistique */
+.subscription-stat span {
+  /* On affiche en bloc. */
+  display: block;
+
+  /* On met une couleur douce. */
+  color: #39546b;
+
+  /* On réduit la taille. */
+  font-size: 14px;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 6px;
+}
+
+/* Valeur statistique */
+.subscription-stat strong {
+  /* On met une couleur foncée. */
+  color: #071f3a;
+
+  /* On augmente la taille. */
+  font-size: 18px;
+}
+
+/* Section des offres */
+.subscription-offers-section {
+  /* On ajoute un espace au-dessus. */
+  margin-top: 28px;
+}
+
+/* Titre des offres */
+.subscription-offers-section h2 {
+  /* On met une couleur foncée. */
+  color: #071f3a;
+
+  /* On ajoute un espace en bas. */
+  margin-bottom: 16px;
+}
+
+/* Grille des offres */
+.subscription-offers-grid {
+  /* On affiche les offres en grille. */
+  display: grid;
+
+  /* On crée des cartes adaptables. */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+  /* On ajoute un espace entre les cartes. */
+  gap: 20px;
+}
+
+/* Carte d'offre */
+.subscription-offer-card {
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On ajoute une bordure douce. */
+  border: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On arrondit les coins. */
+  border-radius: 22px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 24px;
+
+  /* On ajoute une ombre légère. */
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+
+  /* On affiche les éléments en colonne. */
+  display: flex;
+
+  /* On place les éléments verticalement. */
+  flex-direction: column;
+
+  /* On ajoute un espace entre les éléments. */
+  gap: 12px;
+}
+
+/* Titre de l'offre */
+.subscription-offer-card h3 {
+  /* On enlève la marge. */
+  margin: 0;
+
+  /* On met une couleur foncée. */
+  color: #071f3a;
+
+  /* On augmente la taille. */
+  font-size: 24px;
+}
+
+/* Prix de l'offre */
+.subscription-price {
+  /* On met le texte en gras. */
+  font-weight: 900;
+
+  /* On augmente la taille. */
+  font-size: 24px;
+
+  /* On met une couleur bleue. */
+  color: #0b3a67;
+}
+
+/* Liste des avantages */
+.subscription-offer-card ul {
+  /* On ajoute un espace à gauche. */
+  padding-left: 20px;
+
+  /* On ajoute un espace vertical. */
+  margin: 0 0 10px;
+}
+
+/* Note souscription */
+.subscription-note {
+  /* On réduit la taille. */
+  font-size: 14px;
+
+  /* On met une couleur douce. */
+  color: #39546b;
+
+  /* On enlève la marge basse. */
+  margin-bottom: 0;
+}
+
+/* Page du tableau de bord vendeur */
+.seller-dashboard-page {
+  min-height: 70vh;
+}
+
+/* Carte de limite de publication */
+.seller-limit-card {
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Carte quand la limite est atteinte */
+.seller-limit-card.warning {
+  background: #fff7f7;
+  border-color: rgba(190, 60, 60, 0.35);
+}
+
+/* Titre de la carte limite */
+.seller-limit-card h2 {
+  margin-top: 0;
+  color: #071f3a;
+}
+
+/* Grille de limite */
+.seller-limit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+/* Élément de limite */
+.seller-limit-item {
+  background: #edf7ff;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+/* Texte de l'élément */
+.seller-limit-item span {
+  display: block;
+  color: #39546b;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* Valeur de l'élément */
+.seller-limit-item strong {
+  color: #071f3a;
+  font-size: 24px;
+}
+
+/* Alerte limite */
+.seller-limit-alert {
+  margin-top: 18px;
+}
+
+/* Section du tableau de bord */
+.dashboard-section {
+  margin-top: 30px;
+}
+
+/* Titre de section */
+.dashboard-section h2 {
+  color: #071f3a;
+  margin-bottom: 16px;
+}
+
+/* Grille des statistiques */
+.seller-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* Carte statistique */
+.seller-stat-card {
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Libellé statistique */
+.seller-stat-card span {
+  display: block;
+  color: #39546b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* Valeur statistique */
+.seller-stat-card strong {
+  color: #071f3a;
+  font-size: 30px;
+}
+
+/* Grille des actions vendeur */
+.seller-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Carte d'action vendeur */
+.seller-action-card {
+  display: block;
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Effet au survol */
+.seller-action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(7, 31, 58, 0.1);
+}
+
+/* Icône action */
+.seller-action-card span {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+/* Titre action */
+.seller-action-card h3 {
+  margin: 0 0 8px;
+  color: #071f3a;
+}
+
+/* Texte action */
+.seller-action-card p {
+  margin: 0;
+  color: #39546b;
+}
+
+/* Page du tableau de bord acheteur */
+.buyer-dashboard-page {
+  min-height: 70vh;
+}
+
+/* Carte résumé acheteur */
+.buyer-summary-card {
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Titre de la carte résumé */
+.buyer-summary-card h2 {
+  margin-top: 0;
+  color: #071f3a;
+}
+
+/* Grille du résumé */
+.buyer-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+/* Élément du résumé */
+.buyer-summary-item {
+  background: #edf7ff;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+/* Libellé du résumé */
+.buyer-summary-item span {
+  display: block;
+  color: #39546b;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* Valeur du résumé */
+.buyer-summary-item strong {
+  color: #071f3a;
+  font-size: 24px;
+}
+
+/* Grille des statistiques acheteur */
+.buyer-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* Carte statistique acheteur */
+.buyer-stat-card {
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Libellé statistique */
+.buyer-stat-card span {
+  display: block;
+  color: #39546b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* Valeur statistique */
+.buyer-stat-card strong {
+  color: #071f3a;
+  font-size: 30px;
+}
+
+/* Grille des actions acheteur */
+.buyer-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Carte action acheteur */
+.buyer-action-card {
+  display: block;
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Effet au survol */
+.buyer-action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(7, 31, 58, 0.1);
+}
+
+/* Icône action */
+.buyer-action-card span {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+/* Titre action */
+.buyer-action-card h3 {
+  margin: 0 0 8px;
+  color: #071f3a;
+}
+
+/* Texte action */
+.buyer-action-card p {
+  margin: 0;
+  color: #39546b;
+}
+
+/* Carte résumé administrateur */
+.admin-summary-card {
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Titre résumé administrateur */
+.admin-summary-card h2 {
+  margin-top: 0;
+  color: #071f3a;
+}
+
+/* Grille résumé administrateur */
+.admin-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+/* Élément résumé administrateur */
+.admin-summary-item {
+  background: #edf7ff;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+/* Libellé résumé administrateur */
+.admin-summary-item span {
+  display: block;
+  color: #39546b;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* Valeur résumé administrateur */
+.admin-summary-item strong {
+  color: #071f3a;
+  font-size: 24px;
+}
+
+/* Grille des statistiques administrateur */
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+/* Carte statistique administrateur */
+.admin-stat-card {
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Libellé statistique administrateur */
+.admin-stat-card span {
+  display: block;
+  color: #39546b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* Valeur statistique administrateur */
+.admin-stat-card strong {
+  color: #071f3a;
+  font-size: 30px;
+}
+
+/* Grille des actions administrateur */
+.admin-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Carte action administrateur */
+.admin-action-card {
+  display: block;
+  background: #ffffff;
+  border: 1px solid rgba(11, 58, 103, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Effet au survol */
+.admin-action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(7, 31, 58, 0.1);
+}
+
+/* Icône action */
+.admin-action-card span {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+/* Titre action */
+.admin-action-card h3 {
+  margin: 0 0 8px;
+  color: #071f3a;
+}
+
+/* Texte action */
+.admin-action-card p {
+  margin: 0;
+  color: #39546b;
+}
+
+/* Boîte principale de recherche des annonces */
+.annonce-search-box {
+  /* On met un fond blanc. */
+  background: #ffffff;
+
+  /* On ajoute une bordure légère. */
+  border: 1px solid rgba(11, 58, 103, 0.12);
+
+  /* On arrondit les coins. */
+  border-radius: 20px;
+
+  /* On ajoute de l'espace intérieur. */
+  padding: 20px;
+
+  /* On ajoute un espace sous la boîte. */
+  margin: 0 auto 28px;
+
+  /* On limite la largeur. */
+  max-width: 1180px;
+
+  /* On affiche les champs en grille. */
+  display: grid;
+
+  /* On rend la grille responsive. */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+  /* On ajoute un espace entre les champs. */
+  gap: 16px;
+
+  /* On ajoute une ombre légère. */
+  box-shadow: 0 10px 24px rgba(7, 31, 58, 0.06);
+}
+
+/* Chaque groupe de champ dans la recherche */
+.annonce-search-box .form-group {
+  /* On affiche le label et le champ en colonne. */
+  display: flex;
+
+  /* On place les éléments verticalement. */
+  flex-direction: column;
+
+  /* On ajoute un espace entre le label et le champ. */
+  gap: 8px;
+}
+
+/* Label des champs de recherche */
+.annonce-search-box label {
+  /* On met le texte en gras. */
+  font-weight: 700;
+
+  /* On met une couleur foncée. */
+  color: #071f3a;
+}
+
+/* Champs de saisie et listes déroulantes */
+.annonce-search-box input,
+.annonce-search-box select {
+  /* On ajoute de l'espace intérieur. */
+  padding: 12px 14px;
+
+  /* On ajoute une bordure douce. */
+  border: 1px solid rgba(11, 58, 103, 0.18);
+
+  /* On arrondit les coins. */
+  border-radius: 12px;
+
+  /* On définit la taille du texte. */
+  font-size: 15px;
+
+  /* On enlève le contour par défaut. */
+  outline: none;
+}
+
+/* Effet quand un champ est sélectionné */
+.annonce-search-box input:focus,
+.annonce-search-box select:focus {
+  /* On change la couleur de la bordure. */
+  border-color: #0b3a67;
+}
+
+/* Bouton de succès */
+.btn-success {
+  /* Couleur de fond verte. */
+  background: #15803d;
+
+  /* Couleur du texte. */
+  color: #ffffff;
+
+  /* On enlève la bordure. */
+  border: none;
+}
+
+/* Effet au survol du bouton succès */
+.btn-success:hover {
+  /* Vert plus foncé. */
+  background: #166534;
+}

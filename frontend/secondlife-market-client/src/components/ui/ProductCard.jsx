@@ -1,41 +1,66 @@
-// On importe Link pour le bouton de détail.
+// On importe Link pour créer un lien vers le détail.
 import { Link } from "react-router-dom";
 
-// On crée une carte d'annonce réutilisable.
+// On importe la fonction qui transforme l'URL de photo.
+import { getPhotoUrl } from "../../api/annonceApi.js";
+
+// On crée le composant carte d'annonce.
 function ProductCard({ annonce }) {
-  // On retourne la carte de l'annonce.
+  // On formate le prix en FCFA.
+  const prixFormate = Number(annonce.prix).toLocaleString("fr-FR");
+
+  // On prépare l'URL de la photo principale.
+  const photoUrl = getPhotoUrl(annonce.photoPrincipaleUrl);
+
+  // On retourne la carte.
   return (
-    // article représente un élément indépendant de contenu.
+    // On crée une carte.
     <article className="product-card">
-      {/* On affiche l'image de l'annonce. */}
-      <img src={annonce.image} alt={annonce.title} />
-
-      {/* Cette div contient les informations de l'annonce. */}
-      <div className="product-card-content">
-        {/* Ligne supérieure avec catégorie et statut. */}
-        <div className="product-card-top">
-          {/* Catégorie de l'objet. */}
-          <span className="category-pill">{annonce.category}</span>
-
-          {/* Statut de disponibilité. */}
-          <span className="status-pill">{annonce.status}</span>
+      {/* On affiche la photo si elle existe. */}
+      {photoUrl ? (
+        // Image réelle de l'annonce.
+        <img className="product-image" src={photoUrl} alt={annonce.titre} />
+      ) : (
+        // Image temporaire si aucune photo n'existe.
+        <div className="product-image-placeholder">
+          📦
         </div>
+      )}
+
+      {/* Contenu de la carte. */}
+      <div className="product-card-body">
+        {/* Catégorie de l'annonce. */}
+        <span className="product-category">{annonce.nomCategorie}</span>
 
         {/* Titre de l'annonce. */}
-        <h3>{annonce.title}</h3>
+        <h3>{annonce.titre}</h3>
 
-        {/* Prix de l'objet. */}
-        <p className="product-price">{annonce.price}</p>
+        {/* Description courte. */}
+        <p>{annonce.description}</p>
 
-        {/* Ville et état de l'objet. */}
-        <p className="product-meta">{annonce.city} • {annonce.condition}</p>
+        {/* Infos principales. */}
+        <div className="product-meta">
+          {/* Ville. */}
+          <span>{annonce.ville}</span>
 
-        {/* Bouton de détail. */}
-        <Link to="/" className="btn btn-primary btn-full">Voir détails</Link>
+          {/* État de l'objet. */}
+          <span>{annonce.etatObjet}</span>
+        </div>
+
+        {/* Bas de la carte. */}
+        <div className="product-footer">
+          {/* Prix. */}
+          <strong>{prixFormate} FCFA</strong>
+
+          {/* Lien détail. */}
+          <Link to={`/annonces/${annonce.id}`} className="product-link">
+            Voir détail
+          </Link>
+        </div>
       </div>
     </article>
   );
 }
 
-// On exporte ProductCard.
+// On exporte le composant.
 export default ProductCard;

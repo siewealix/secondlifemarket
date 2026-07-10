@@ -28,4 +28,4 @@ appsettings.Development.json
 
 # Système
 .DS_Store
-Thumbs.db
+Thumbs.db/backend/SecondLifeMarket.Api/appsettings.json

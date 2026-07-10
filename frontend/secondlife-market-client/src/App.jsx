@@ -7,6 +7,9 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 // On importe les routes de l'application.
 import AppRoutes from "./routes/AppRoutes.jsx";
 
+// On importe le composant qui surveille les comptes suspendus.
+import SuspendedAccountWatcher from "./components/auth/SuspendedAccountWatcher.jsx";
+
 // On crée le composant principal.
 function App() {
   // On retourne l'application.
@@ -15,6 +18,9 @@ function App() {
     <BrowserRouter>
       {/* On active l'authentification globale. */}
       <AuthProvider>
+        {/* On surveille si le compte connecté est suspendu. */}
+        <SuspendedAccountWatcher />
+
         {/* On affiche les routes. */}
         <AppRoutes />
       </AuthProvider>

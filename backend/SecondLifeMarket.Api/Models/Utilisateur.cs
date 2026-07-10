@@ -52,4 +52,16 @@ public class Utilisateur
 
     // On relie l'utilisateur à ses refresh tokens.
     public List<RefreshToken> RefreshTokens { get; set; } = new();
+
+    // On relie l'utilisateur à ses annonces.
+    public List<Annonce> Annonces { get; set; } = new();
+
+    // Liste des demandes d'achat envoyées par ce membre.
+    public List<DemandeAchat> DemandesAchatEnvoyees { get; set; } = new();
+
+    // Liste des messages envoyés par cet utilisateur.
+    public List<Message> MessagesEnvoyes { get; set; } = new();
+
+    // Abonnement souscrit par l'utilisateur.
+    public Abonnement? Abonnement { get; set; }
 }

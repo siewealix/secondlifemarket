@@ -202,3 +202,85 @@
   border-radius: 16px;
   font-weight: 800;
 }
+
+/* On stylise le bloc d'état vide. */
+.empty-state {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 34px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+/* On stylise l'icône de l'état vide. */
+.empty-state-icon {
+  font-size: 42px;
+  margin-bottom: 14px;
+}
+
+/* On stylise le titre de l'état vide. */
+.empty-state h3 {
+  margin: 0 0 10px;
+  color: var(--blue-night);
+}
+
+/* On stylise la description de l'état vide. */
+.empty-state p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+/* On stylise le badge de statut. */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* On stylise le statut disponible. */
+.status-available {
+  background: #e8fff3;
+  color: #087a3c;
+}
+
+/* On stylise le statut brouillon ou en création. */
+.status-draft {
+  background: #eef6ff;
+  color: #0b3a67;
+}
+
+/* On stylise le statut en analyse. */
+.status-analysis {
+  background: #fff7df;
+  color: #9a6500;
+}
+
+/* On stylise le statut en réexamen admin. */
+.status-review {
+  background: #fff1e8;
+  color: #b65300;
+}
+
+/* On stylise le statut rejeté. */
+.status-rejected {
+  background: #ffecec;
+  color: #b42318;
+}
+
+/* On stylise le statut vendu. */
+.status-sold {
+  background: #f1ecff;
+  color: #5b21b6;
+}
+
+/* On stylise le statut par défaut. */
+.status-default {
+  background: #edf2f7;
+  color: #334155;
+}

@@ -24,6 +24,9 @@ using SecondLifeMarket.Api.Services;
 
 // On importe les interfaces.
 using SecondLifeMarket.Api.Services.Interfaces;
+using SecondLifeMarket.Api.Hubs;
+
+using SecondLifeMarket.Api.Middlewares;
 
 // On crée le builder de l'application.
 var builder = WebApplication.CreateBuilder(args);
@@ -96,7 +99,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("ReactClient", policy =>
     {
         // On indique l'adresse du frontend React en HTTPS.
-        policy.WithOrigins("https://localhost:5173")
+        policy.WithOrigins("https://localhost:5173", "https://localhost:5174")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -111,6 +114,35 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 // On ajoute le service des catégories.
 builder.Services.AddScoped<ICategorieService, CategorieService>();
+
+// On ajoute le service des annonces.
+builder.Services.AddScoped<IAnnonceService, AnnonceService>();
+
+// On ajoute le service d'analyse IA des annonces.
+builder.Services.AddHttpClient<IAiAnnonceAnalysisService, AiAnnonceAnalysisService>();
+
+// On ajoute le service des demandes d'achat.
+builder.Services.AddScoped<IDemandeAchatService, DemandeAchatService>();
+
+// On ajoute le service des conversations.
+builder.Services.AddScoped<IConversationService, ConversationService>();
+
+// On ajoute le service des messages.
+builder.Services.AddScoped<IMessageService, MessageService>();
+
+// On ajoute SignalR pour la messagerie instantanée.
+builder.Services.AddSignalR();
+
+// On ajoute le service des signalements.
+builder.Services.AddScoped<ISignalementService, SignalementService>();
+
+// On ajoute le service admin pour gérer les utilisateurs.
+builder.Services.AddScoped<IAdminUtilisateurService, AdminUtilisateurService>();
+
+// On ajoute le service des abonnements.
+builder.Services.AddScoped<IAbonnementService, AbonnementService>();
+
+builder.Services.AddScoped<ITableauBordService, TableauBordService>();
 
 // On récupère la clé JWT.
 string jwtKey = builder.Configuration["Jwt:Key"]!;
@@ -152,6 +184,30 @@ builder.Services.AddAuthentication(options =>
 
         // On définit la clé de signature.
         IssuerSigningKey = new SymmetricSecurityKey(jwtKeyBytes)
+    };
+
+    // On permet à SignalR de lire le token envoyé dans la query string.
+    options.Events = new JwtBearerEvents
+    {
+        // Cette méthode est appelée quand ASP.NET Core reçoit une requête authentifiée.
+        OnMessageReceived = context =>
+        {
+            // On récupère le token envoyé par SignalR.
+            string? accessToken = context.Request.Query["access_token"];
+
+            // On récupère le chemin demandé.
+            PathString path = context.HttpContext.Request.Path;
+
+            // On vérifie si la requête concerne notre hub SignalR.
+            if (!string.IsNullOrWhiteSpace(accessToken) && path.StartsWithSegments("/hubs/messages"))
+            {
+                // On donne le token à ASP.NET Core pour authentifier l'utilisateur.
+                context.Token = accessToken;
+            }
+
+            // On termine la méthode.
+            return Task.CompletedTask;
+        }
     };
 });
 
@@ -200,17 +256,26 @@ app.Use(async (context, next) =>
     await next();
 });
 
+// On autorise l'accès aux fichiers du dossier wwwroot.
+app.UseStaticFiles();
+
 // On active CORS.
 app.UseCors("ReactClient");
 
-// On active l'authentification.
+// On active l'authentification JWT.
 app.UseAuthentication();
 
-// On active l'autorisation.
+// On vérifie que le compte connecté est encore actif.
+app.UseMiddleware<ActiveUserMiddleware>();
+
+// On active les autorisations par rôle.
 app.UseAuthorization();
 
 // On relie les contrôleurs.
 app.MapControllers();
+
+// On expose le hub SignalR de messagerie.
+app.MapHub<MessageHub>("/hubs/messages");
 
 // On initialise la base au démarrage.
 using (IServiceScope scope = app.Services.CreateScope())

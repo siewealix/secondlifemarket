@@ -98,7 +98,6 @@ public class AuthService : IAuthService
         // On vérifie si la ville contient un contenu dangereux.
         XssProtectionHelper.ValidateText(dto.Ville, "ville");
 
-
         // On nettoie le nom.
         string nom = XssProtectionHelper.CleanText(dto.Nom);
 
@@ -204,14 +203,14 @@ public class AuthService : IAuthService
             return null;
         }
 
-        // On vérifie si le compte est désactivé.
+        // On vérifie si le compte est suspendu.
         if (!utilisateur.EstActif)
         {
             // On enregistre une tentative échouée.
-            await AddLoginAttemptAsync(email, ipAddress, userAgent, false, "Compte désactivé.");
+            await AddLoginAttemptAsync(email, ipAddress, userAgent, false, "Compte suspendu.");
 
-            // On refuse la connexion.
-            return null;
+            // On bloque la connexion avec un message clair.
+            throw new InvalidOperationException("Votre compte a été suspendu. Connexion impossible.");
         }
 
         // On vérifie le mot de passe.
@@ -272,8 +271,21 @@ public class AuthService : IAuthService
         // On refuse si l'utilisateur est introuvable.
         if (savedToken.Utilisateur == null) return null;
 
-        // On refuse si le compte est désactivé.
-        if (!savedToken.Utilisateur.EstActif) return null;
+        // On vérifie si le compte est suspendu.
+        if (!savedToken.Utilisateur.EstActif)
+        {
+            // On révoque l'ancien refresh token.
+            savedToken.EstRevoque = true;
+
+            // On sauvegarde la révocation.
+            await _context.SaveChangesAsync();
+
+            // On supprime le cookie du navigateur.
+            DeleteRefreshCookie(response);
+
+            // On bloque le renouvellement du token.
+            throw new InvalidOperationException("Votre compte a été suspendu. Session expirée.");
+        }
 
         // On révoque l'ancien refresh token.
         savedToken.EstRevoque = true;

@@ -46,10 +46,8 @@ function Navbar() {
         <Link to="/">Accueil</Link>
 
         {/* Lien annonces. */}
-        <Link to="/">Annonces</Link>
+        <Link to="/annonces">Annonces</Link>
 
-        {/* Lien catégories. */}
-        <Link to="/">Catégories</Link>
       </nav>
 
       {/* On affiche les actions utilisateur. */}

@@ -1,77 +1,109 @@
-// On importe le composant ProductCard.
+// On importe useEffect pour charger les annonces au démarrage.
+import { useEffect } from "react";
+
+// On importe useState pour stocker les annonces.
+import { useState } from "react";
+
+// On importe Link pour aller vers toutes les annonces.
+import { Link } from "react-router-dom";
+
+// On importe la carte d'annonce.
 import ProductCard from "../ui/ProductCard.jsx";
 
-// On crée quelques annonces fictives pour la page d'accueil.
-const annonces = [
-  // Première annonce.
-  {
-    id: 1,
-    title: "iPhone 12 en bon état",
-    price: "185 000 FCFA",
-    city: "Douala",
-    condition: "Bon état",
-    category: "Électronique",
-    status: "Disponible",
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80"
-  },
-
-  // Deuxième annonce.
-  {
-    id: 2,
-    title: "Canapé confortable 3 places",
-    price: "95 000 FCFA",
-    city: "Yaoundé",
-    condition: "Très bon état",
-    category: "Maison",
-    status: "Disponible",
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80"
-  },
-
-  // Troisième annonce.
-  {
-    id: 3,
-    title: "Vélo de ville solide",
-    price: "60 000 FCFA",
-    city: "Bafoussam",
-    condition: "Bon état",
-    category: "Transport",
-    status: "Disponible",
-    image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=900&q=80"
-  }
-];
+// On importe la fonction API qui récupère les annonces.
+import { getPublicAnnoncesRequest } from "../../api/annonceApi.js";
 
 // On crée la section des annonces récentes.
 function RecentAnnoncesSection() {
-  // On retourne la section complète.
+  // On stocke les annonces récentes.
+  const [annonces, setAnnonces] = useState([]);
+
+  // On stocke l'état de chargement.
+  const [loading, setLoading] = useState(true);
+
+  // On stocke l'erreur.
+  const [error, setError] = useState("");
+
+  // On charge les annonces au démarrage.
+  useEffect(() => {
+    // On crée une fonction interne.
+    async function loadAnnonces() {
+      // On essaie de charger les annonces.
+      try {
+        // On récupère les annonces depuis MySQL.
+        const data = await getPublicAnnoncesRequest();
+
+        // On garde seulement les 3 premières annonces.
+        setAnnonces(data.slice(0, 3));
+
+        // On vide l'erreur.
+        setError("");
+      } catch (requestError) {
+        // On affiche l'erreur.
+        setError(requestError.message);
+      } finally {
+        // On arrête le chargement.
+        setLoading(false);
+      }
+    }
+
+    // On lance le chargement.
+    loadAnnonces();
+  }, []);
+
+  // On retourne la section.
   return (
-    // Section standard de la page.
+    // Section de la page d'accueil.
     <section className="home-section">
-      {/* En-tête de section avec bouton. */}
-      <div className="section-header section-header-row">
-        {/* Bloc titre et description. */}
-        <div>
-          {/* Titre de la section. */}
-          <h2>Annonces récentes</h2>
+      {/* En-tête de section. */}
+      <div className="section-header">
+        {/* Titre. */}
+        <h2>Annonces récentes</h2>
 
-          {/* Description courte. */}
-          <p>Découvrez quelques objets récemment publiés par les membres.</p>
-        </div>
-
-        {/* Bouton pour voir toutes les annonces. */}
-        <button className="btn btn-outline">Voir toutes les annonces</button>
+        {/* Description. */}
+        <p>Découvrez les derniers objets publiés par les membres.</p>
       </div>
 
+      {/* Message de chargement. */}
+      {loading && (
+        <p className="section-loading">
+          Chargement des annonces...
+        </p>
+      )}
+
+      {/* Message d'erreur. */}
+      {error && (
+        <p className="section-error" role="alert">
+          {error}
+        </p>
+      )}
+
+      {/* Message si aucune annonce. */}
+      {!loading && !error && annonces.length === 0 && (
+        <p className="section-empty">
+          Aucune annonce disponible pour le moment.
+        </p>
+      )}
+
       {/* Grille des annonces. */}
-      <div className="products-grid">
-        {/* On parcourt les annonces. */}
-        {annonces.map((annonce) => (
-          // On affiche une carte pour chaque annonce.
-          <ProductCard key={annonce.id} annonce={annonce} />
-        ))}
+      {!loading && !error && annonces.length > 0 && (
+        <div className="products-grid">
+          {/* On affiche chaque annonce. */}
+          {annonces.map((annonce) => (
+            <ProductCard key={annonce.id} annonce={annonce} />
+          ))}
+        </div>
+      )}
+
+      {/* Lien vers toutes les annonces. */}
+      <div className="section-action">
+        <Link to="/annonces" className="btn btn-outline">
+          Voir toutes les annonces
+        </Link>
       </div>
     </section>
   );
 }
 
-// On exporte la section des annonces récentes.
+// On exporte la section.
 export default RecentAnnoncesSection;

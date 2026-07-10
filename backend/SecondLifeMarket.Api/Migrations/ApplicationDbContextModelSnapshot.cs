@@ -19,6 +19,138 @@ namespace SecondLifeMarket.Api.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Abonnement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDebut")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateFin")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("LimitePublication")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<string>("StatutAbonnement")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("TypeAbonnement")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("UtilisateurId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UtilisateurId")
+                        .IsUnique();
+
+                    b.ToTable("Abonnements");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.AnalyseIa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AnnonceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateAnalyse")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("DecisionIa")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Motif")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
+
+                    b.Property<int>("ScoreConfiance")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VersionModele")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnnonceId");
+
+                    b.ToTable("Analyse_IA");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Annonce", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategorieId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DatePublication")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1500)
+                        .HasColumnType("varchar(1500)");
+
+                    b.Property<bool>("EstActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("EtatObjet")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<decimal>("Prix")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Statut")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("Titre")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("UtilisateurId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ville")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategorieId");
+
+                    b.HasIndex("UtilisateurId");
+
+                    b.ToTable("Annonces");
+                });
+
             modelBuilder.Entity("SecondLifeMarket.Api.Models.Categorie", b =>
                 {
                     b.Property<int>("Id")
@@ -52,6 +184,63 @@ namespace SecondLifeMarket.Api.Migrations
                         .IsUnique();
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Conversation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreation")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("DemandeAchatId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EstActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemandeAchatId")
+                        .IsUnique();
+
+                    b.ToTable("Conversations");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.DemandeAchat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AcheteurId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AnnonceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDemande")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Statut")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AcheteurId");
+
+                    b.HasIndex("AnnonceId");
+
+                    b.ToTable("DemandesAchat");
                 });
 
             modelBuilder.Entity("SecondLifeMarket.Api.Models.LoginAttempt", b =>
@@ -91,6 +280,65 @@ namespace SecondLifeMarket.Api.Migrations
                     b.ToTable("LoginAttempts");
                 });
 
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Contenu")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
+
+                    b.Property<int>("ConversationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateEnvoi")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("EstLu")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("ExpediteurId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConversationId");
+
+                    b.HasIndex("ExpediteurId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AnnonceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateAjout")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("EstPrincipale")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnnonceId");
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("SecondLifeMarket.Api.Models.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -122,6 +370,110 @@ namespace SecondLifeMarket.Api.Migrations
                     b.HasIndex("UtilisateurId");
 
                     b.ToTable("RefreshTokens");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.SignalementAnnonce", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AdministrateurId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AnnonceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateSignalement")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateTraitement")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("DecisionAdmin")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Motif")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("SignaleurId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StatutSignalement")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdministrateurId");
+
+                    b.HasIndex("AnnonceId");
+
+                    b.HasIndex("SignaleurId");
+
+                    b.ToTable("SignalementAnnonce");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.SignalementUtilisateur", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AdministrateurId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateSignalement")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateTraitement")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("DecisionAdmin")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Motif")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<int>("SignaleurId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StatutSignalement")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<int>("UtilisateurSignaleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdministrateurId");
+
+                    b.HasIndex("SignaleurId");
+
+                    b.HasIndex("UtilisateurSignaleId");
+
+                    b.ToTable("SignalementUtilisateur");
                 });
 
             modelBuilder.Entity("SecondLifeMarket.Api.Models.Utilisateur", b =>
@@ -179,6 +531,107 @@ namespace SecondLifeMarket.Api.Migrations
                     b.ToTable("Utilisateurs");
                 });
 
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Abonnement", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Utilisateur")
+                        .WithOne("Abonnement")
+                        .HasForeignKey("SecondLifeMarket.Api.Models.Abonnement", "UtilisateurId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Utilisateur");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.AnalyseIa", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.Annonce", "Annonce")
+                        .WithMany("AnalysesIa")
+                        .HasForeignKey("AnnonceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annonce");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Annonce", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.Categorie", "Categorie")
+                        .WithMany("Annonces")
+                        .HasForeignKey("CategorieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Utilisateur")
+                        .WithMany("Annonces")
+                        .HasForeignKey("UtilisateurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Categorie");
+
+                    b.Navigation("Utilisateur");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Conversation", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.DemandeAchat", "DemandeAchat")
+                        .WithOne("Conversation")
+                        .HasForeignKey("SecondLifeMarket.Api.Models.Conversation", "DemandeAchatId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("DemandeAchat");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.DemandeAchat", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Acheteur")
+                        .WithMany("DemandesAchatEnvoyees")
+                        .HasForeignKey("AcheteurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SecondLifeMarket.Api.Models.Annonce", "Annonce")
+                        .WithMany("DemandesAchat")
+                        .HasForeignKey("AnnonceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Acheteur");
+
+                    b.Navigation("Annonce");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Message", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.Conversation", "Conversation")
+                        .WithMany("Messages")
+                        .HasForeignKey("ConversationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Expediteur")
+                        .WithMany("MessagesEnvoyes")
+                        .HasForeignKey("ExpediteurId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Conversation");
+
+                    b.Navigation("Expediteur");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Photo", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.Annonce", "Annonce")
+                        .WithMany("Photos")
+                        .HasForeignKey("AnnonceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Annonce");
+                });
+
             modelBuilder.Entity("SecondLifeMarket.Api.Models.RefreshToken", b =>
                 {
                     b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Utilisateur")
@@ -190,8 +643,94 @@ namespace SecondLifeMarket.Api.Migrations
                     b.Navigation("Utilisateur");
                 });
 
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.SignalementAnnonce", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Administrateur")
+                        .WithMany()
+                        .HasForeignKey("AdministrateurId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SecondLifeMarket.Api.Models.Annonce", "Annonce")
+                        .WithMany("SignalementsAnnonces")
+                        .HasForeignKey("AnnonceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Signaleur")
+                        .WithMany()
+                        .HasForeignKey("SignaleurId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Administrateur");
+
+                    b.Navigation("Annonce");
+
+                    b.Navigation("Signaleur");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.SignalementUtilisateur", b =>
+                {
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Administrateur")
+                        .WithMany()
+                        .HasForeignKey("AdministrateurId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "Signaleur")
+                        .WithMany()
+                        .HasForeignKey("SignaleurId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SecondLifeMarket.Api.Models.Utilisateur", "UtilisateurSignale")
+                        .WithMany()
+                        .HasForeignKey("UtilisateurSignaleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Administrateur");
+
+                    b.Navigation("Signaleur");
+
+                    b.Navigation("UtilisateurSignale");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Annonce", b =>
+                {
+                    b.Navigation("AnalysesIa");
+
+                    b.Navigation("DemandesAchat");
+
+                    b.Navigation("Photos");
+
+                    b.Navigation("SignalementsAnnonces");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Categorie", b =>
+                {
+                    b.Navigation("Annonces");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.Conversation", b =>
+                {
+                    b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("SecondLifeMarket.Api.Models.DemandeAchat", b =>
+                {
+                    b.Navigation("Conversation");
+                });
+
             modelBuilder.Entity("SecondLifeMarket.Api.Models.Utilisateur", b =>
                 {
+                    b.Navigation("Abonnement");
+
+                    b.Navigation("Annonces");
+
+                    b.Navigation("DemandesAchatEnvoyees");
+
+                    b.Navigation("MessagesEnvoyes");
+
                     b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
