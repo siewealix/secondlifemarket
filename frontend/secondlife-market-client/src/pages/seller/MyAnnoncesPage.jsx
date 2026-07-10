@@ -337,7 +337,7 @@ async function handleMarkAsSold(annonceId) {
                     </Link>
 
                     {/* Lien vers la modification. */}
-                    <Link to={`/membre/annonces/modifier/${annonce.id}`} className="btn btn-primary">
+                    <Link to={`/membre/vendeur/annonces/${annonce.id}/modifier`} className="btn btn-primary">
                         Modifier
                     </Link>
 

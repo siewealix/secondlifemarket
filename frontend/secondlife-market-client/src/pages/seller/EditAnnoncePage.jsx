@@ -27,6 +27,7 @@ import {
   getMyAnnoncesRequest,
   updateAnnonceRequest,
   uploadAnnoncePhotoRequest,
+  publishAnnonceRequest,
 } from "../../api/annonceApi.js";
 
 // On définit les valeurs initiales du formulaire.
@@ -488,7 +489,7 @@ function EditAnnoncePage() {
                 <option value="Réservée">Réservée</option>
 
                 {/* Vendue. */}
-                <option value="Vendue">Vendue</option>
+                <option value="Vendu">Vendu</option>
               </select>
             </div>
 
