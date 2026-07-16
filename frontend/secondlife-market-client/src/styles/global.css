@@ -1,16 +1,9 @@
-/* On importe une police moderne depuis Google Fonts. */
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap");
-
-/* On importe le style de mise en page. */
 @import "./layout.css";
-
-/* On importe le style des composants. */
 @import "./components.css";
-
-/* On importe le style des pages. */
 @import "./pages.css";
+@import "./conversations.css";
 
-/* On définit les couleurs principales du projet. */
 :root {
   --blue-dark: #0b3a67;
   --blue-main: #1d6fdc;
@@ -33,12 +26,10 @@
   --radius-large: 34px;
 }
 
-/* On applique une règle simple à tous les éléments. */
 * {
   box-sizing: border-box;
 }
 
-/* On configure le corps de la page. */
 body {
   margin: 0;
   font-family: "Manrope", Arial, sans-serif;
@@ -46,19 +37,16 @@ body {
   color: var(--text-main);
 }
 
-/* On retire le soulignement des liens. */
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* On rend les images propres et responsives. */
 img {
   display: block;
   max-width: 100%;
 }
 
-/* On donne un style élégant aux boutons. */
 .btn {
   border: none;
   border-radius: 999px;
@@ -72,33 +60,28 @@ img {
   transition: 0.25s ease;
 }
 
-/* On crée le bouton principal bleu premium. */
 .btn-primary {
   background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
   color: var(--white);
   box-shadow: 0 14px 28px rgba(29, 111, 220, 0.26);
 }
 
-/* On crée le bouton clair. */
 .btn-light {
   background: rgba(237, 247, 255, 0.9);
   color: var(--blue-dark);
   border: 1px solid rgba(29, 111, 220, 0.12);
 }
 
-/* On crée le bouton contour. */
 .btn-outline {
   background: var(--white);
   color: var(--blue-main);
   border: 1px solid rgba(29, 111, 220, 0.35);
 }
 
-/* On crée un bouton qui prend toute la largeur. */
 .btn-full {
   width: 100%;
 }
 
-/* On ajoute un effet moderne au survol des boutons. */
 .btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 18px 38px rgba(29, 111, 220, 0.22);
