@@ -1,0 +1,118 @@
+# On définit les différentes étapes du pipeline.
+stages:
+  # Cette étape exécutera les tests frontend.
+  - test
+
+  # Cette étape vérifiera que le frontend peut être compilé.
+  - build
+
+# On définit le dossier dans lequel se trouve le frontend.
+variables:
+  # Cette variable évite de répéter le chemin dans tous les jobs.
+  FRONTEND_DIR: "frontend/secondlife-market-client"
+
+  # On place le cache npm dans le dossier du projet GitLab.
+  NPM_CONFIG_CACHE: "$CI_PROJECT_DIR/.npm"
+
+# On définit les paramètres communs aux différents jobs.
+default:
+  # On utilise Node.js 22 pour exécuter le frontend.
+  image: node:22-alpine
+
+  # On configure le cache des dépendances npm.
+  cache:
+    # La clé du cache dépend du fichier package-lock.json.
+    key:
+      files:
+        - frontend/secondlife-market-client/package-lock.json
+
+    # On conserve le cache npm entre les pipelines.
+    paths:
+      - .npm/
+
+    # On autorise la lecture et la mise à jour du cache.
+    policy: pull-push
+
+  # Ces commandes seront exécutées avant chaque job.
+  before_script:
+    # On entre dans le dossier du frontend.
+    - cd "$FRONTEND_DIR"
+
+    # On installe exactement les dépendances du package-lock.json.
+    - npm ci --cache "$CI_PROJECT_DIR/.npm" --prefer-offline
+
+# On crée le job chargé des tests.
+test_frontend:
+  # On place ce job dans l'étape test.
+  stage: test
+
+  # On définit la commande exécutée par GitLab.
+  script:
+    # On exécute les tests et on génère la couverture.
+    - npm run test:coverage
+
+  # On permet à GitLab de détecter le pourcentage de lignes couvertes.
+  coverage: '/All files[^|]*\|[^|]*\|[^|]*\|[^|]*\|\s*([\d.]+)/'
+
+  # On conserve le rapport de couverture.
+  artifacts:
+    # On conserve le rapport même lorsqu'un test échoue.
+    when: always
+
+    # On conserve le rapport pendant sept jours.
+    expire_in: 7 days
+
+    # On indique le dossier à conserver.
+    paths:
+      - frontend/secondlife-market-client/coverage/
+
+  # On définit les situations dans lesquelles le job sera exécuté.
+  rules:
+    # On exécute les tests pendant une merge request.
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+    # On exécute les tests sur la branche main.
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+    # On exécute les tests sur la branche develop.
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+    # On exécute les tests sur les branches commençant par tests/.
+    - if: '$CI_COMMIT_BRANCH =~ /^tests\//'
+
+# On crée le job chargé de la compilation.
+build_frontend:
+  # On place ce job dans l'étape build.
+  stage: build
+
+  # Ce job attend que les tests réussissent.
+  needs:
+    - test_frontend
+
+  # On définit la commande de compilation.
+  script:
+    # On compile le frontend pour la production.
+    - npm run build
+
+  # On conserve le résultat de la compilation.
+  artifacts:
+    # On conserve le dossier pendant un jour.
+    expire_in: 1 day
+
+    # On indique le dossier généré par Vite.
+    paths:
+      - frontend/secondlife-market-client/dist/
+
+  # On définit les situations dans lesquelles le build sera exécuté.
+  rules:
+    # On vérifie le build pendant une merge request.
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+    # On vérifie le build sur la branche main.
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+    # On vérifie le build sur la branche develop.
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+    # On vérifie le build sur les branches de tests.
+    - if: '$CI_COMMIT_BRANCH =~ /^tests\//'
