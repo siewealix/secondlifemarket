@@ -4,6 +4,25 @@ import { useEffect } from "react";
 // On importe useState pour stocker les annonces et les filtres.
 import { useState } from "react";
 
+// On importe les outils de navigation.
+import {
+  Link,
+  useSearchParams,
+} from "react-router-dom";
+
+// On importe les icônes utilisées dans la page.
+import {
+  ArrowRight,
+  CircleAlert,
+  FilePlus2,
+  LoaderCircle,
+  PackageSearch,
+  RefreshCw,
+  RotateCcw,
+  Search,
+  SlidersHorizontal,
+} from "lucide-react";
+
 // On importe la navbar.
 import Navbar from "../../components/layout/Navbar.jsx";
 
@@ -18,7 +37,13 @@ import { getPublicAnnoncesRequest } from "../../api/annonceApi.js";
 
 // On crée la page des annonces.
 function AnnoncesPage() {
-  // On stocke les annonces récupérées depuis le backend.
+  // On récupère les paramètres présents dans l'URL.
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // On récupère la recherche envoyée depuis la page d'accueil.
+  const rechercheUrl = searchParams.get("recherche") || "";
+
+  // On stocke les annonces reçues depuis le backend.
   const [annonces, setAnnonces] = useState([]);
 
   // On stocke l'état de chargement.
@@ -27,164 +52,181 @@ function AnnoncesPage() {
   // On stocke le message d'erreur.
   const [error, setError] = useState("");
 
-  // On stocke le texte saisi pour rechercher une annonce par nom.
-  const [searchName, setSearchName] = useState("");
+  // On stocke le texte recherché.
+  const [searchName, setSearchName] = useState(rechercheUrl);
 
-  // On stocke la catégorie choisie par l'utilisateur.
+  // On stocke la catégorie sélectionnée.
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // On stocke le prix minimum saisi par l'utilisateur.
+  // On stocke le prix minimum.
   const [minPrice, setMinPrice] = useState("");
 
-  // On stocke le prix maximum saisi par l'utilisateur.
+  // On stocke le prix maximum.
   const [maxPrice, setMaxPrice] = useState("");
 
-  // On stocke le type de tri choisi par l'utilisateur.
+  // On stocke le type de tri.
   const [sortOrder, setSortOrder] = useState("recent");
+
+  // Cette fonction charge les annonces depuis le backend.
+  async function loadAnnonces() {
+    // On active le chargement.
+    setLoading(true);
+
+    // On efface l'ancienne erreur.
+    setError("");
+
+    try {
+      // On appelle l'API.
+      const data = await getPublicAnnoncesRequest();
+
+      // On stocke les annonces reçues.
+      setAnnonces(data);
+    } catch (requestError) {
+      // On affiche le message d'erreur.
+      setError(requestError.message);
+    } finally {
+      // On arrête le chargement.
+      setLoading(false);
+    }
+  }
 
   // On charge les annonces au démarrage.
   useEffect(() => {
-    // On crée une fonction interne pour charger les annonces.
-    async function loadAnnonces() {
-      // On essaie de charger les annonces.
-      try {
-        // On appelle l'API du backend.
-        const data = await getPublicAnnoncesRequest();
-
-        // On stocke les annonces reçues.
-        setAnnonces(data);
-
-        // On vide l'erreur.
-        setError("");
-      } catch (requestError) {
-        // On stocke l'erreur reçue.
-        setError(requestError.message);
-      } finally {
-        // On arrête le chargement.
-        setLoading(false);
-      }
-    }
-
-    // On lance le chargement.
+    // On appelle la fonction de chargement.
     loadAnnonces();
   }, []);
 
-  // On construit automatiquement la liste des catégories à partir des annonces.
+  // On actualise la recherche lorsque l'URL change.
+  useEffect(() => {
+    // On utilise la valeur reçue dans l'URL.
+    setSearchName(rechercheUrl);
+  }, [rechercheUrl]);
+
+  // On construit la liste des catégories présentes dans les annonces.
   const categories = Array.from(
-    // On utilise Map pour éviter les catégories répétées.
+    // Map permet de supprimer les catégories répétées.
     new Map(
-      // On transforme chaque annonce en paire clé-valeur.
+      // On parcourt les annonces.
       annonces
-        // On garde seulement les annonces qui ont une catégorie valide.
-        .filter((annonce) => annonce.categorieId && annonce.nomCategorie)
-        // On prépare chaque catégorie.
+        // On garde les annonces qui possèdent une catégorie.
+        .filter(
+          (annonce) =>
+            annonce.categorieId != null &&
+            annonce.nomCategorie
+        )
+
+        // On transforme chaque catégorie en paire clé-valeur.
         .map((annonce) => [
-          // La clé est l'identifiant de la catégorie.
+          // La clé correspond à l'identifiant.
           annonce.categorieId,
 
-          // La valeur contient l'identifiant et le nom de la catégorie.
+          // La valeur contient les informations de la catégorie.
           {
-            // Identifiant de la catégorie.
             id: annonce.categorieId,
-
-            // Nom de la catégorie.
             nom: annonce.nomCategorie,
           },
         ])
     ).values()
-  );
+  )
+    // On classe les catégories par ordre alphabétique.
+    .sort((a, b) => a.nom.localeCompare(b.nom, "fr"));
 
-  // On vérifie si les prix saisis sont cohérents.
+  // On vérifie si les prix sont incohérents.
   const prixInvalide =
-    // On vérifie si les deux prix sont renseignés.
+    // On vérifie que les deux prix sont remplis.
     minPrice !== "" &&
     maxPrice !== "" &&
 
-    // On vérifie si le prix minimum est supérieur au prix maximum.
+    // On vérifie si le minimum dépasse le maximum.
     Number(minPrice) > Number(maxPrice);
 
-  // On filtre et on trie les annonces.
+  // On filtre et trie les annonces.
   const filteredAnnonces = annonces
-    // On filtre les annonces selon les critères saisis.
+    // On filtre selon les critères.
     .filter((annonce) => {
-      // On transforme le texte recherché en minuscule.
+      // On nettoie le texte recherché.
       const searchText = searchName.toLowerCase().trim();
 
-      // On récupère le titre de l'annonce en minuscule.
-      const titre = annonce.titre.toLowerCase();
+      // On sécurise et transforme le titre en minuscules.
+      const titre = String(annonce.titre || "").toLowerCase();
 
-      // On récupère la description de l'annonce en minuscule.
-      const description = annonce.description.toLowerCase();
+      // On sécurise et transforme la description en minuscules.
+      const description = String(
+        annonce.description || ""
+      ).toLowerCase();
 
-      // On vérifie si le titre ou la description contient le texte recherché.
+      // On vérifie la correspondance du texte.
       const nameMatch =
-        // Si aucun texte n'est saisi, on accepte toutes les annonces.
         searchText === "" ||
-
-        // Sinon, on cherche dans le titre.
         titre.includes(searchText) ||
-
-        // On cherche aussi dans la description.
         description.includes(searchText);
 
-      // On vérifie si la catégorie correspond.
+      // On vérifie la correspondance de la catégorie.
       const categoryMatch =
-        // Si aucune catégorie n'est choisie, on accepte toutes les annonces.
         selectedCategory === "" ||
-
-        // Sinon, on garde seulement les annonces de la catégorie choisie.
         annonce.categorieId === Number(selectedCategory);
 
-      // On vérifie si le prix est supérieur ou égal au prix minimum.
+      // On vérifie le prix minimum.
       const minPriceMatch =
-        // Si aucun prix minimum n'est saisi, on accepte l'annonce.
         minPrice === "" ||
-
-        // Sinon, on compare le prix de l'annonce au prix minimum.
         annonce.prix >= Number(minPrice);
 
-      // On vérifie si le prix est inférieur ou égal au prix maximum.
+      // On vérifie le prix maximum.
       const maxPriceMatch =
-        // Si aucun prix maximum n'est saisi, on accepte l'annonce.
         maxPrice === "" ||
-
-        // Sinon, on compare le prix de l'annonce au prix maximum.
         annonce.prix <= Number(maxPrice);
 
-      // Si les prix sont invalides, on ne retourne aucun résultat.
+      // Si les prix sont incohérents, on bloque les résultats.
       if (prixInvalide) {
-        // On bloque le résultat.
         return false;
       }
 
-      // On garde l'annonce seulement si tous les critères sont respectés.
-      return nameMatch && categoryMatch && minPriceMatch && maxPriceMatch;
+      // On conserve l'annonce si tous les critères correspondent.
+      return (
+        nameMatch &&
+        categoryMatch &&
+        minPriceMatch &&
+        maxPriceMatch
+      );
     })
 
     // On trie les annonces filtrées.
     .sort((a, b) => {
-      // Si l'utilisateur choisit le prix croissant.
+      // On trie du prix le plus petit au plus grand.
       if (sortOrder === "prix_asc") {
-        // On trie du prix le plus petit au prix le plus grand.
         return a.prix - b.prix;
       }
 
-      // Si l'utilisateur choisit le prix décroissant.
+      // On trie du prix le plus grand au plus petit.
       if (sortOrder === "prix_desc") {
-        // On trie du prix le plus grand au prix le plus petit.
         return b.prix - a.prix;
       }
 
-      // Sinon, on trie par date de publication récente.
-      return new Date(b.datePublication) - new Date(a.datePublication);
+      // Par défaut, on affiche les annonces les plus récentes.
+      return (
+        new Date(b.datePublication) -
+        new Date(a.datePublication)
+      );
     });
+
+  // On compte le nombre de filtres actuellement utilisés.
+  const activeFiltersCount = [
+    searchName.trim() !== "",
+    selectedCategory !== "",
+    minPrice !== "",
+    maxPrice !== "",
+    sortOrder !== "recent",
+  ].filter(Boolean).length;
+
+  // On vérifie si au moins un filtre est actif.
+  const hasActiveFilters = activeFiltersCount > 0;
 
   // On réinitialise tous les filtres.
   function resetFilters() {
-    // On vide la recherche par nom.
+    // On vide la recherche.
     setSearchName("");
 
-    // On vide la catégorie choisie.
+    // On vide la catégorie.
     setSelectedCategory("");
 
     // On vide le prix minimum.
@@ -193,219 +235,438 @@ function AnnoncesPage() {
     // On vide le prix maximum.
     setMaxPrice("");
 
-    // On remet le tri par défaut.
+    // On restaure le tri par défaut.
     setSortOrder("recent");
+
+    // On retire également la recherche présente dans l'URL.
+    setSearchParams({});
   }
 
   // On retourne la page.
   return (
+    // On regroupe les éléments sans ajouter de balise inutile.
     <>
       {/* On affiche la navbar. */}
       <Navbar />
 
-      {/* Contenu principal. */}
+      {/* On affiche le contenu principal. */}
       <main className="annonces-page">
-        {/* En-tête de page. */}
-        <section className="annonces-header">
-          {/* Titre. */}
-          <h1>Annonces disponibles</h1>
+        {/* On centre le contenu. */}
+        <div className="container annonces-page-container">
+          {/* On crée le bandeau principal. */}
+          <header className="annonces-hero">
+            {/* On crée la partie contenant les textes. */}
+            <div className="annonces-hero-content">
+              {/* On affiche une petite indication. */}
+              <span className="annonces-hero-label">
+                <PackageSearch size={17} aria-hidden="true" />
 
-          {/* Description. */}
-          <p>
-            Découvrez les objets d’occasion publiés par les membres de SecondLife Market.
-          </p>
-        </section>
+                Marketplace d’occasion
+              </span>
 
-        {/* Message de chargement. */}
-        {loading && (
-          <p className="section-loading">
-            Chargement des annonces...
-          </p>
-        )}
+              {/* On affiche le titre principal. */}
+              <h1>Trouvez l’objet qu’il vous faut</h1>
 
-        {/* Message d'erreur. */}
-        {error && (
-          <p className="section-error" role="alert">
-            {error}
-          </p>
-        )}
+              {/* On affiche la description. */}
+              <p>
+                Recherchez parmi les objets d’occasion publiés par les membres
+                de SecondLife Market et trouvez facilement la bonne annonce.
+              </p>
 
-        {/* Bloc de recherche affiché seulement quand les annonces sont chargées. */}
-        {!loading && !error && annonces.length > 0 && (
-          <section className="annonce-search-box">
-            {/* Champ pour rechercher par nom ou description. */}
-            <div className="form-group">
-              {/* Libellé du champ. */}
-              <label>Rechercher un produit</label>
+              {/* On affiche les chiffres réels après le chargement. */}
+              {!loading && !error && (
+                <div className="annonces-hero-stats">
+                  {/* On affiche le nombre total d'annonces. */}
+                  <div>
+                    <strong>{annonces.length}</strong>
 
-              {/* Champ de recherche. */}
-              <input
-                // Type texte.
-                type="text"
+                    <span>
+                      {annonces.length > 1
+                        ? "annonces disponibles"
+                        : "annonce disponible"}
+                    </span>
+                  </div>
 
-                // Texte affiché avant la saisie.
-                placeholder="Exemple : téléphone, chaussure, ordinateur..."
+                  {/* On affiche le nombre de catégories. */}
+                  <div>
+                    <strong>{categories.length}</strong>
 
-                // Valeur actuelle du champ.
-                value={searchName}
+                    <span>
+                      {categories.length > 1
+                        ? "catégories"
+                        : "catégorie"}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
 
-                // Mise à jour du texte recherché.
-                onChange={(event) => setSearchName(event.target.value)}
+            {/* On permet de publier une annonce. */}
+            <Link
+              className="annonces-hero-action"
+              to="/membre/vendeur/annonces/nouvelle"
+            >
+              <FilePlus2 size={20} aria-hidden="true" />
+
+              Publier une annonce
+
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+          </header>
+
+          {/* On affiche le chargement. */}
+          {loading && (
+            <div
+              className="annonces-loading-state"
+              role="status"
+            >
+              {/* On affiche une icône animée. */}
+              <LoaderCircle
+                className="annonces-loading-icon"
+                size={36}
+                aria-hidden="true"
               />
+
+              {/* On affiche le message. */}
+              <div>
+                <strong>Chargement des annonces</strong>
+
+                <p>Nous récupérons les objets disponibles.</p>
+              </div>
             </div>
+          )}
 
-            {/* Filtre par catégorie. */}
-            <div className="form-group">
-              {/* Libellé du champ. */}
-              <label>Catégorie</label>
+          {/* On affiche l'erreur. */}
+          {!loading && error && (
+            <div
+              className="annonces-error-state"
+              role="alert"
+            >
+              {/* On affiche l'icône d'erreur. */}
+              <CircleAlert size={32} aria-hidden="true" />
 
-              {/* Liste déroulante des catégories. */}
-              <select
-                // Valeur actuelle de la catégorie choisie.
-                value={selectedCategory}
+              {/* On affiche le contenu de l'erreur. */}
+              <div>
+                <strong>Impossible de charger les annonces</strong>
 
-                // Mise à jour de la catégorie choisie.
-                onChange={(event) => setSelectedCategory(event.target.value)}
+                <p>{error}</p>
+
+                {/* On permet de relancer la requête. */}
+                <button
+                  type="button"
+                  className="annonces-retry-button"
+                  onClick={loadAnnonces}
+                >
+                  <RefreshCw size={17} aria-hidden="true" />
+
+                  Réessayer
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* On affiche les filtres lorsque les annonces sont chargées. */}
+          {!loading && !error && annonces.length > 0 && (
+            <section
+              className="annonces-filter-panel"
+              aria-labelledby="annonces-filter-title"
+            >
+              {/* On crée l'en-tête des filtres. */}
+              <div className="annonces-filter-header">
+                {/* On affiche le titre et l'explication. */}
+                <div>
+                  <span>Recherche personnalisée</span>
+
+                  <h2 id="annonces-filter-title">
+                    <SlidersHorizontal
+                      size={22}
+                      aria-hidden="true"
+                    />
+
+                    Rechercher et filtrer
+                  </h2>
+
+                  <p>
+                    Affinez les résultats selon votre budget et vos besoins.
+                  </p>
+                </div>
+
+                {/* On affiche les actions des filtres. */}
+                <div className="annonces-filter-actions">
+                  {/* On affiche le nombre de filtres actifs. */}
+                  {hasActiveFilters && (
+                    <span className="annonces-active-filters">
+                      {activeFiltersCount}{" "}
+                      {activeFiltersCount > 1
+                        ? "filtres actifs"
+                        : "filtre actif"}
+                    </span>
+                  )}
+
+                  {/* On permet de réinitialiser les filtres. */}
+                  <button
+                    type="button"
+                    className="annonces-reset-button"
+                    onClick={resetFilters}
+                    disabled={!hasActiveFilters}
+                  >
+                    <RotateCcw size={17} aria-hidden="true" />
+
+                    Réinitialiser
+                  </button>
+                </div>
+              </div>
+
+              {/* On affiche les différents champs. */}
+              <div className="annonces-filters-grid">
+                {/* On crée le champ de recherche principal. */}
+                <div className="annonces-filter-group annonces-filter-search">
+                  {/* On associe le label au champ. */}
+                  <label htmlFor="annonces-search">
+                    Rechercher un produit
+                  </label>
+
+                  {/* On crée le conteneur du champ et de l'icône. */}
+                  <div className="annonces-search-field">
+                    {/* On affiche l'icône. */}
+                    <Search size={19} aria-hidden="true" />
+
+                    {/* On crée le champ. */}
+                    <input
+                      id="annonces-search"
+                      type="search"
+                      placeholder="Téléphone, chaussure, ordinateur..."
+                      value={searchName}
+                      onChange={(event) =>
+                        setSearchName(event.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+
+                {/* On crée le filtre des catégories. */}
+                <div className="annonces-filter-group">
+                  <label htmlFor="annonces-category">
+                    Catégorie
+                  </label>
+
+                  <select
+                    id="annonces-category"
+                    value={selectedCategory}
+                    onChange={(event) =>
+                      setSelectedCategory(event.target.value)
+                    }
+                  >
+                    <option value="">
+                      Toutes les catégories
+                    </option>
+
+                    {categories.map((categorie) => (
+                      <option
+                        key={categorie.id}
+                        value={categorie.id}
+                      >
+                        {categorie.nom}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* On crée le filtre du prix minimum. */}
+                <div className="annonces-filter-group">
+                  <label htmlFor="annonces-min-price">
+                    Prix minimum
+                  </label>
+
+                  <input
+                    id="annonces-min-price"
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    placeholder="FCFA"
+                    value={minPrice}
+                    aria-invalid={prixInvalide}
+                    aria-describedby={
+                      prixInvalide
+                        ? "annonces-price-error"
+                        : undefined
+                    }
+                    onChange={(event) =>
+                      setMinPrice(event.target.value)
+                    }
+                  />
+                </div>
+
+                {/* On crée le filtre du prix maximum. */}
+                <div className="annonces-filter-group">
+                  <label htmlFor="annonces-max-price">
+                    Prix maximum
+                  </label>
+
+                  <input
+                    id="annonces-max-price"
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    placeholder="FCFA"
+                    value={maxPrice}
+                    aria-invalid={prixInvalide}
+                    aria-describedby={
+                      prixInvalide
+                        ? "annonces-price-error"
+                        : undefined
+                    }
+                    onChange={(event) =>
+                      setMaxPrice(event.target.value)
+                    }
+                  />
+                </div>
+
+                {/* On crée le sélecteur de tri. */}
+                <div className="annonces-filter-group">
+                  <label htmlFor="annonces-sort">
+                    Trier par
+                  </label>
+
+                  <select
+                    id="annonces-sort"
+                    value={sortOrder}
+                    onChange={(event) =>
+                      setSortOrder(event.target.value)
+                    }
+                  >
+                    <option value="recent">
+                      Plus récent
+                    </option>
+
+                    <option value="prix_asc">
+                      Prix croissant
+                    </option>
+
+                    <option value="prix_desc">
+                      Prix décroissant
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              {/* On affiche l'erreur concernant les prix. */}
+              {prixInvalide && (
+                <p
+                  id="annonces-price-error"
+                  className="annonces-price-error"
+                  role="alert"
+                >
+                  Le prix minimum ne peut pas être supérieur au prix maximum.
+                </p>
+              )}
+            </section>
+          )}
+
+          {/* On affiche un état vide si aucune annonce n'existe. */}
+          {!loading && !error && annonces.length === 0 && (
+            <section className="annonces-empty-state">
+              {/* On affiche l'icône. */}
+              <PackageSearch size={48} aria-hidden="true" />
+
+              {/* On affiche le titre. */}
+              <h2>Aucune annonce disponible</h2>
+
+              {/* On affiche l'explication. */}
+              <p>
+                Aucune annonce n’est actuellement publiée sur la plateforme.
+              </p>
+
+              {/* On permet de publier la première annonce. */}
+              <Link
+                to="/membre/vendeur/annonces/nouvelle"
+                className="annonces-empty-link"
               >
-                {/* Option par défaut pour afficher toutes les catégories. */}
-                <option value="">Toutes les catégories</option>
+                Publier une annonce
 
-                {/* On affiche les catégories disponibles. */}
-                {categories.map((categorie) => (
-                  // Option d'une catégorie.
-                  <option key={categorie.id} value={categorie.id}>
-                    {/* Nom de la catégorie. */}
-                    {categorie.nom}
-                  </option>
-                ))}
-              </select>
-            </div>
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+            </section>
+          )}
 
-            {/* Filtre prix minimum. */}
-            <div className="form-group">
-              {/* Libellé du champ. */}
-              <label>Prix minimum</label>
-
-              {/* Champ numérique pour le prix minimum. */}
-              <input
-                // Type nombre.
-                type="number"
-
-                // On empêche les valeurs négatives.
-                min="0"
-
-                // Texte affiché avant la saisie.
-                placeholder="Prix min"
-
-                // Valeur actuelle du prix minimum.
-                value={minPrice}
-
-                // Mise à jour du prix minimum.
-                onChange={(event) => setMinPrice(event.target.value)}
-              />
-            </div>
-
-            {/* Filtre prix maximum. */}
-            <div className="form-group">
-              {/* Libellé du champ. */}
-              <label>Prix maximum</label>
-
-              {/* Champ numérique pour le prix maximum. */}
-              <input
-                // Type nombre.
-                type="number"
-
-                // On empêche les valeurs négatives.
-                min="0"
-
-                // Texte affiché avant la saisie.
-                placeholder="Prix max"
-
-                // Valeur actuelle du prix maximum.
-                value={maxPrice}
-
-                // Mise à jour du prix maximum.
-                onChange={(event) => setMaxPrice(event.target.value)}
-              />
-            </div>
-
-            {/* Sélecteur de tri. */}
-            <div className="form-group">
-              {/* Libellé du champ. */}
-              <label>Trier par</label>
-
-              {/* Liste déroulante pour choisir le tri. */}
-              <select
-                // Valeur actuelle du tri.
-                value={sortOrder}
-
-                // Mise à jour du tri.
-                onChange={(event) => setSortOrder(event.target.value)}
+          {/* On affiche les résultats. */}
+          {!loading &&
+            !error &&
+            annonces.length > 0 &&
+            !prixInvalide && (
+              <section
+                className="annonces-results"
+                aria-labelledby="annonces-results-title"
               >
-                {/* Tri par annonces récentes. */}
-                <option value="recent">Plus récent</option>
+                {/* On crée l'en-tête des résultats. */}
+                <div className="annonces-results-header">
+                  {/* On affiche le nombre de résultats. */}
+                  <div>
+                    <span>Résultats</span>
 
-                {/* Tri par prix croissant. */}
-                <option value="prix_asc">Prix croissant</option>
+                    <h2 id="annonces-results-title">
+                      {filteredAnnonces.length}{" "}
+                      {filteredAnnonces.length > 1
+                        ? "annonces trouvées"
+                        : "annonce trouvée"}
+                    </h2>
+                  </div>
 
-                {/* Tri par prix décroissant. */}
-                <option value="prix_desc">Prix décroissant</option>
-              </select>
-            </div>
+                  {/* On rappelle le type de tri. */}
+                  <p aria-live="polite">
+                    {sortOrder === "prix_asc" &&
+                      "Classées du prix le plus bas au plus élevé."}
 
-            {/* Bouton pour vider tous les filtres. */}
-            <div className="form-group">
-              {/* Libellé invisible simple pour garder l'alignement. */}
-              <label>Action</label>
+                    {sortOrder === "prix_desc" &&
+                      "Classées du prix le plus élevé au plus bas."}
 
-              {/* Bouton de réinitialisation. */}
-              <button
-                // Type bouton pour éviter un submit.
-                type="button"
+                    {sortOrder === "recent" &&
+                      "Les annonces les plus récentes apparaissent en premier."}
+                  </p>
+                </div>
 
-                // Classe de style.
-                className="btn btn-secondary"
+                {/* On affiche les annonces trouvées. */}
+                {filteredAnnonces.length > 0 && (
+                  <div className="annonces-products-grid">
+                    {/* On affiche chaque annonce. */}
+                    {filteredAnnonces.map((annonce) => (
+                      <ProductCard
+                        key={annonce.id}
+                        annonce={annonce}
+                      />
+                    ))}
+                  </div>
+                )}
 
-                // Action au clic.
-                onClick={resetFilters}
-              >
-                Réinitialiser
-              </button>
-            </div>
-          </section>
-        )}
+                {/* On affiche un message si aucun résultat ne correspond. */}
+                {filteredAnnonces.length === 0 && (
+                  <div className="annonces-no-results">
+                    {/* On affiche l'icône. */}
+                    <Search size={42} aria-hidden="true" />
 
-        {/* Message si le prix minimum est supérieur au prix maximum. */}
-        {prixInvalide && (
-          <p className="section-error" role="alert">
-            Le prix minimum ne peut pas être supérieur au prix maximum.
-          </p>
-        )}
+                    {/* On affiche le titre. */}
+                    <h3>Aucun résultat trouvé</h3>
 
-        {/* Message si aucune annonce n'existe dans la base. */}
-        {!loading && !error && annonces.length === 0 && (
-          <p className="section-empty">
-            Aucune annonce disponible pour le moment.
-          </p>
-        )}
+                    {/* On affiche l'explication. */}
+                    <p>
+                      Essayez de modifier votre recherche, votre catégorie ou
+                      votre budget.
+                    </p>
 
-        {/* Message si aucune annonce ne correspond aux filtres. */}
-        {!loading && !error && annonces.length > 0 && filteredAnnonces.length === 0 && !prixInvalide && (
-          <p className="section-empty">
-            Aucune annonce ne correspond à votre recherche.
-          </p>
-        )}
+                    {/* On permet de vider les filtres. */}
+                    <button
+                      type="button"
+                      onClick={resetFilters}
+                    >
+                      <RotateCcw size={17} aria-hidden="true" />
 
-        {/* Grille des annonces filtrées. */}
-        {!loading && !error && filteredAnnonces.length > 0 && (
-          <section className="products-grid">
-            {/* On affiche chaque annonce filtrée. */}
-            {filteredAnnonces.map((annonce) => (
-              // Carte d'une annonce.
-              <ProductCard key={annonce.id} annonce={annonce} />
-            ))}
-          </section>
-        )}
+                      Effacer les filtres
+                    </button>
+                  </div>
+                )}
+              </section>
+            )}
+        </div>
       </main>
 
       {/* On affiche le footer. */}

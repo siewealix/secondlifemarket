@@ -140,3 +140,66 @@
     align-items: stretch;
   }
 }
+
+/* On configure la zone contenant les liens du footer. */
+.footer-links {
+  /* On place les liens sur la même ligne. */
+  display: flex;
+
+  /* On centre les liens horizontalement. */
+  justify-content: center;
+
+  /* On autorise le retour à la ligne sur les petits écrans. */
+  flex-wrap: wrap;
+
+  /* On ajoute un espace entre les liens. */
+  gap: 24px;
+
+  /* On ajoute un espace au-dessus et en dessous. */
+  margin: 24px 0;
+}
+
+/* On configure chaque lien du footer. */
+.footer-links a {
+  /* On applique une couleur claire. */
+  color: #dbeafe;
+
+  /* On augmente légèrement l’épaisseur du texte. */
+  font-weight: 700;
+
+  /* On ajoute une transition douce. */
+  transition: color 0.2s ease;
+}
+
+/* On modifie le lien lorsque la souris passe dessus. */
+.footer-links a:hover {
+  /* On applique une couleur bleue plus claire. */
+  color: #7dd3fc;
+
+  /* On souligne le lien. */
+  text-decoration: underline;
+}
+
+/* On améliore la navigation avec le clavier. */
+.footer-links a:focus-visible {
+  /* On ajoute un contour visible. */
+  outline: 3px solid #7dd3fc;
+
+  /* On éloigne légèrement le contour du lien. */
+  outline-offset: 5px;
+
+  /* On arrondit le contour. */
+  border-radius: 4px;
+}
+
+/* On adapte les liens du footer aux petits écrans. */
+@media (max-width: 600px) {
+  /* On organise les liens verticalement. */
+  .footer-links {
+    /* On place les liens les uns sous les autres. */
+    flex-direction: column;
+
+    /* On réduit l’espace entre les liens. */
+    gap: 14px;
+  }
+}

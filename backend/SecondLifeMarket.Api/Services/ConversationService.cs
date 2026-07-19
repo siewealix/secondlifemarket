@@ -125,6 +125,74 @@ public class ConversationService : IConversationService
         return ToDto(conversation);
     }
 
+    // Cette méthode retourne toutes les conversations d'un utilisateur.
+    public async Task<List<ConversationDto>> GetConversationsByUtilisateurAsync(
+        int utilisateurId
+    )
+    {
+        // On récupère les conversations dans la base de données.
+        List<Conversation> conversations = await _context.Conversations
+
+            // On charge la demande d'achat liée à la conversation.
+            .Include(conversation => conversation.DemandeAchat)
+
+            // On charge l'annonce liée à la demande d'achat.
+            .ThenInclude(demande => demande!.Annonce)
+
+            // On charge le vendeur de l'annonce.
+            .ThenInclude(annonce => annonce!.Utilisateur)
+
+            // On charge encore la demande d'achat.
+            .Include(conversation => conversation.DemandeAchat)
+
+            // On charge l'acheteur de la demande.
+            .ThenInclude(demande => demande!.Acheteur)
+
+            // On charge tous les messages de la conversation.
+            .Include(conversation => conversation.Messages)
+
+            // On charge l'expéditeur de chaque message.
+            .ThenInclude(message => message.Expediteur)
+
+            // On garde seulement les conversations de l'utilisateur connecté.
+            .Where(conversation =>
+                conversation.DemandeAchat != null
+                && conversation.DemandeAchat.Annonce != null
+                && (
+                    conversation.DemandeAchat.AcheteurId == utilisateurId
+                    || conversation.DemandeAchat.Annonce.UtilisateurId == utilisateurId
+                )
+            )
+
+            // On exécute la requête dans la base de données.
+            .ToListAsync();
+
+        // On trie les conversations de la plus récente à la plus ancienne.
+        conversations = conversations
+            .OrderByDescending(conversation =>
+                // On vérifie si la conversation contient des messages.
+                conversation.Messages.Count > 0
+
+                    // Si elle contient des messages, on utilise la date du dernier message.
+                    ? conversation.Messages.Max(message => message.DateEnvoi)
+
+                    // Sinon, on utilise la date de création de la conversation.
+                    : conversation.DateCreation
+            )
+
+            // On transforme le résultat en liste.
+            .ToList();
+
+        // On transforme chaque conversation en ConversationDto.
+        return conversations
+
+            // On utilise la méthode ToDto déjà présente dans le service.
+            .Select(conversation => ToDto(conversation))
+
+            // On transforme le résultat final en liste.
+            .ToList();
+    }
+
     // Méthode qui transforme une conversation en DTO.
     private static ConversationDto ToDto(Conversation conversation)
     {

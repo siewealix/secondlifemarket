@@ -284,3 +284,210 @@
   background: #edf2f7;
   color: #334155;
 }
+
+/* On configure la bannière principale des cookies. */
+.cookie-banner {
+  /* On garde la bannière visible pendant le défilement. */
+  position: fixed;
+
+  /* On place la bannière à 20 pixels du bas. */
+  bottom: 20px;
+
+  /* On laisse un espace à gauche. */
+  left: 20px;
+
+  /* On laisse un espace à droite. */
+  right: 20px;
+
+  /* On place la bannière devant les autres éléments. */
+  z-index: 9999;
+
+  /* On place le texte et les boutons sur la même ligne. */
+  display: flex;
+
+  /* On aligne verticalement le contenu. */
+  align-items: center;
+
+  /* On sépare le texte et les boutons. */
+  justify-content: space-between;
+
+  /* On ajoute un espace entre les différentes parties. */
+  gap: 20px;
+
+  /* On ajoute un espace à l’intérieur de la bannière. */
+  padding: 20px 24px;
+
+  /* On donne un fond blanc à la bannière. */
+  background-color: white;
+
+  /* On ajoute une bordure légère. */
+  border: 1px solid #dbe7f3;
+
+  /* On arrondit les coins. */
+  border-radius: 20px;
+
+  /* On ajoute une ombre sous la bannière. */
+  box-shadow: 0 20px 50px rgba(11, 58, 103, 0.2);
+}
+
+/* On configure la partie contenant le texte. */
+.cookie-banner-content {
+  /* On empêche le texte de devenir trop large. */
+  max-width: 750px;
+}
+
+/* On configure le titre. */
+.cookie-banner-content h2 {
+  /* On retire la marge supérieure. */
+  margin: 0 0 8px;
+
+  /* On applique la couleur principale. */
+  color: #0b3a67;
+
+  /* On règle la taille du titre. */
+  font-size: 20px;
+}
+
+/* On configure le paragraphe. */
+.cookie-banner-content p {
+  /* On retire les marges automatiques. */
+  margin: 0;
+
+  /* On applique une couleur plus douce. */
+  color: #64748b;
+
+  /* On augmente l’espace entre les lignes. */
+  line-height: 1.6;
+}
+
+/* On configure la zone des boutons. */
+.cookie-banner-actions {
+  /* On affiche les boutons sur la même ligne. */
+  display: flex;
+
+  /* On ajoute un espace entre les boutons. */
+  gap: 12px;
+
+  /* On empêche les boutons de devenir trop petits. */
+  flex-shrink: 0;
+}
+
+/* On adapte la bannière aux téléphones. */
+@media (max-width: 700px) {
+  /* On modifie l’organisation de la bannière. */
+  .cookie-banner {
+    /* On place le contenu verticalement. */
+    flex-direction: column;
+
+    /* On aligne le contenu à gauche. */
+    align-items: flex-start;
+  }
+
+  /* On adapte la zone des boutons. */
+  .cookie-banner-actions {
+    /* On utilise toute la largeur disponible. */
+    width: 100%;
+  }
+
+  /* On agrandit les boutons. */
+  .cookie-banner-actions button {
+    /* Chaque bouton occupe la même largeur. */
+    flex: 1;
+  }
+}
+
+/* ====================================================== */
+/* BOUTON DE RETOUR                                       */
+/* ====================================================== */
+
+/* On transforme le lien en bouton. */
+.back-button {
+  /* On place la flèche et le texte sur la même ligne. */
+  display: inline-flex;
+
+  /* On centre verticalement le contenu. */
+  align-items: center;
+
+  /* On ajoute un espace entre la flèche et le texte. */
+  gap: 8px;
+
+  /* On adapte la largeur au contenu. */
+  width: fit-content;
+
+  /* On ajoute un espace sous le bouton. */
+  margin-bottom: 24px;
+
+  /* On ajoute de l’espace à l’intérieur. */
+  padding: 10px 17px;
+
+  /* On ajoute une bordure bleue claire. */
+  border: 1px solid #b9cee4;
+
+  /* On arrondit complètement le bouton. */
+  border-radius: 999px;
+
+  /* On utilise un fond blanc. */
+  background-color: #ffffff;
+
+  /* On utilise la couleur principale du site. */
+  color: #123c63;
+
+  /* On retire le soulignement du lien. */
+  text-decoration: none;
+
+  /* On rend le texte plus visible. */
+  font-size: 15px;
+  font-weight: 700;
+
+  /* On affiche une main au survol. */
+  cursor: pointer;
+
+  /* On ajoute une petite ombre. */
+  box-shadow: 0 5px 14px rgba(18, 60, 99, 0.08);
+
+  /* On rend les animations fluides. */
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* On modifie le bouton lorsque la souris passe dessus. */
+.back-button:hover {
+  /* On utilise un fond bleu. */
+  background-color: #1769c2;
+
+  /* On utilise un texte blanc. */
+  color: #ffffff;
+
+  /* On adapte la couleur de la bordure. */
+  border-color: #1769c2;
+
+  /* On déplace légèrement le bouton vers la gauche. */
+  transform: translateX(-3px);
+
+  /* On renforce légèrement l’ombre. */
+  box-shadow: 0 8px 18px rgba(23, 105, 194, 0.2);
+}
+
+/* On rend le focus visible pour la navigation au clavier. */
+.back-button:focus-visible {
+  /* On ajoute un contour bleu autour du bouton. */
+  outline: 3px solid rgba(23, 105, 194, 0.25);
+
+  /* On éloigne légèrement le contour. */
+  outline-offset: 3px;
+}
+
+/* On adapte le bouton aux petits écrans. */
+@media (max-width: 600px) {
+  .back-button {
+    /* On réduit légèrement les espaces sur téléphone. */
+    padding: 9px 15px;
+
+    /* On réduit la taille du texte. */
+    font-size: 14px;
+  }
+}

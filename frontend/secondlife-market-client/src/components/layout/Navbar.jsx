@@ -40,15 +40,29 @@ function Navbar() {
         <span>SecondLife Market</span>
       </Link>
 
-      {/* On affiche les liens principaux. */}
-      <nav className="navbar-links" aria-label="Navigation principale">
-        {/* Lien accueil. */}
-        <Link to="/">Accueil</Link>
+      {/* On crée la zone qui contient les liens principaux du menu. */}
+<nav className="navbar-links" aria-label="Navigation principale">
 
-        {/* Lien annonces. */}
-        <Link to="/annonces">Annonces</Link>
+  {/* Ce lien permet de retourner à la page d'accueil. */}
+  <Link to="/">
+    Accueil
+  </Link>
 
-      </nav>
+  {/* Ce lien permet d'afficher toutes les annonces. */}
+  <Link to="/annonces">
+    Annonces
+  </Link>
+
+  {/* On vérifie si un utilisateur est actuellement connecté. */}
+  {isAuthenticated && (
+
+    /* Ce lien s'affiche seulement lorsque l'utilisateur est connecté. */
+    <Link to="/messagerie">
+      Messagerie
+    </Link>
+  )}
+
+</nav>
 
       {/* On affiche les actions utilisateur. */}
       <div className="navbar-actions">

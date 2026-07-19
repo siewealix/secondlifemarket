@@ -4,6 +4,9 @@ import AuthLayout from "../../components/layout/AuthLayout.jsx";
 // On importe le formulaire d'inscription.
 import RegisterForm from "../../components/forms/RegisterForm.jsx";
 
+// On importe le bouton de retour.
+import BackButton from "../../components/ui/BackButton.jsx";
+
 // On crée la page d'inscription.
 function RegisterPage() {
   // On retourne la page complète.
@@ -13,6 +16,9 @@ function RegisterPage() {
       title="Créer un compte"
       subtitle="Inscrivez-vous pour envoyer des demandes d’achat et publier vos annonces."
     >
+      {/* On affiche le bouton permettant de retourner à l'accueil. */}
+      <BackButton />
+
       {/* On affiche le formulaire d'inscription. */}
       <RegisterForm />
     </AuthLayout>

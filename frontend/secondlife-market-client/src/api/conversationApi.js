@@ -18,9 +18,44 @@ async function readResponseData(response) {
 // Cette fonction ouvre ou crée une conversation liée à une demande d'achat.
 export async function getOrCreateConversationRequest(demandeAchatId, accessToken) {
   // On envoie une requête POST vers le backend.
-  const response = await fetch(`${API_URL}/Conversations/demande/${demandeAchatId}`, {
-    // On utilise POST car le backend peut créer la conversation si elle n'existe pas.
-    method: "POST",
+  const response = await fetch(
+    `${API_URL}/Conversations/demande/${demandeAchatId}`,
+    {
+      // On utilise POST car le backend peut créer une conversation.
+      method: "POST",
+
+      // On prépare les informations envoyées dans l'en-tête.
+      headers: {
+        // On accepte une réponse JSON.
+        Accept: "application/json",
+
+        // On envoie le token de l'utilisateur connecté.
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  // On lit la réponse du backend.
+  const data = await readResponseData(response);
+
+  // On vérifie si le backend a retourné une erreur.
+  if (!response.ok) {
+    // On lance une erreur claire.
+    throw new Error(
+      data.message || "Impossible d'ouvrir la conversation."
+    );
+  }
+
+  // On retourne la conversation.
+  return data;
+}
+
+// Cette fonction récupère toutes les conversations de l'utilisateur connecté.
+export async function getMyConversationsRequest(accessToken) {
+  // On envoie une requête GET vers le backend.
+  const response = await fetch(`${API_URL}/Conversations`, {
+    // On utilise GET pour récupérer les conversations.
+    method: "GET",
 
     // On prépare les informations envoyées dans l'en-tête.
     headers: {
@@ -32,14 +67,17 @@ export async function getOrCreateConversationRequest(demandeAchatId, accessToken
     },
   });
 
-  // On lit la réponse du backend.
+  // On lit la réponse envoyée par le backend.
   const data = await readResponseData(response);
 
-  // Si le backend retourne une erreur, on lance une erreur claire.
+  // On vérifie si le backend a retourné une erreur.
   if (!response.ok) {
-    throw new Error(data.message || "Impossible d'ouvrir la conversation.");
+    // On lance une erreur avec un message clair.
+    throw new Error(
+      data.message || "Impossible de charger vos conversations."
+    );
   }
 
-  // On retourne la conversation.
+  // On retourne la liste des conversations.
   return data;
 }

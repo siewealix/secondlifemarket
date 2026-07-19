@@ -1,12 +1,44 @@
 // On importe Link pour créer des boutons de navigation.
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+// On importe useState pour mémoriser le texte recherché.
+import { useState } from "react";
 
 // On importe les icônes utiles.
 import { Search, ShieldCheck, MapPin } from "lucide-react";
 
+
 // On crée la grande section d'accueil.
 function HeroSection() {
   // On retourne la section hero.
+  // On prépare la fonction qui permet de changer de page.
+  const navigate = useNavigate();
+
+  // On mémorise le texte saisi dans la barre de recherche.
+  const [searchText, setSearchText] = useState("");
+
+  // Cette fonction sera exécutée lorsque l’utilisateur lance la recherche.
+  function handleSearch(event) {
+    // On empêche le rechargement complet de la page.
+    event.preventDefault();
+
+    // On supprime les espaces inutiles.
+    const texteNettoye = searchText.trim();
+
+    // On vérifie si le champ est vide.
+    if (texteNettoye === "") {
+      // On ouvre simplement la page de toutes les annonces.
+      navigate("/annonces");
+
+      // On arrête la fonction.
+      return;
+    }
+
+    // On ouvre la page des annonces avec le texte recherché dans l’URL.
+    navigate(
+      `/annonces?recherche=${encodeURIComponent(texteNettoye)}`
+    );
+  }
   return (
     // section représente une partie importante de la page.
     <section className="hero-section">
@@ -30,31 +62,55 @@ function HeroSection() {
           et donnez une seconde vie aux biens du quotidien.
         </p>
 
-        {/* Zone de recherche principale. */}
-        <div className="hero-search">
-          {/* Icône de recherche. */}
+        {/* On crée un formulaire de recherche. */}
+        <form
+          className="hero-search"
+          onSubmit={handleSearch}
+        >
+          {/* On affiche l’icône de recherche. */}
           <Search size={22} />
 
-          {/* Champ de recherche visuel. */}
-          <input placeholder="Que recherchez-vous aujourd’hui ?" />
+          {/* On crée le champ dans lequel l’utilisateur écrit sa recherche. */}
+          <input
+            type="text"
+            placeholder="Que recherchez-vous aujourd’hui ?"
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+          />
 
-          {/* Bouton de recherche. */}
-          <button>Rechercher</button>
-        </div>
+          {/* Ce bouton envoie le formulaire. */}
+          <button type="submit">
+            Rechercher
+          </button>
+        </form>
 
-        {/* Zone des boutons principaux. */}
+        {/* On crée la zone qui contient les deux boutons principaux. */}
         <div className="hero-actions">
-          {/* Bouton pour explorer les annonces. */}
-          <Link to="/" className="btn btn-primary">Explorer les annonces</Link>
 
-          {/* Bouton pour vendre un objet. */}
-          <Link to="/" className="btn btn-outline">Vendre un objet</Link>
+          {/* Ce lien permet d’ouvrir la page de toutes les annonces. */}
+          <Link
+            to="/annonces"
+            className="btn btn-primary"
+          >
+            {/* Texte affiché dans le premier bouton. */}
+            Explorer les annonces
+          </Link>
+
+          {/* Ce lien permet d’ouvrir le formulaire de création d’une annonce. */}
+          <Link
+            to="/membre/vendeur/annonces/nouvelle"
+            className="btn btn-outline"
+          >
+            {/* Texte affiché dans le deuxième bouton. */}
+            Vendre un objet
+          </Link>
+
         </div>
 
         {/* Petites informations de confiance. */}
         <div className="hero-trust">
           {/* Premier élément de confiance. */}
-          <span>+300 annonces publiées</span>
+          <span>+100 annonces publiées</span>
 
           {/* Deuxième élément de confiance. */}
           <span>Prix en FCFA</span>

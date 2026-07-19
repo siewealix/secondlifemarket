@@ -49,6 +49,42 @@ public class ConversationsController : ControllerBase
         }
     }
 
+    // Cette route répond aux requêtes GET envoyées vers api/Conversations.
+    [HttpGet]
+
+    // Cette méthode retourne toutes les conversations de l'utilisateur connecté.
+    public async Task<IActionResult> GetMyConversations()
+    {
+        // On essaie de récupérer les conversations.
+        try
+        {
+            // On récupère l'identifiant de l'utilisateur connecté depuis son token JWT.
+            int utilisateurId = GetCurrentUserId();
+
+            // On demande au service de récupérer les conversations de cet utilisateur.
+            List<ConversationDto> conversations =
+                await _conversationService.GetConversationsByUtilisateurAsync(
+                    utilisateurId
+                );
+
+            // On retourne les conversations avec le code HTTP 200.
+            return Ok(conversations);
+        }
+        // Cette partie est exécutée si l'utilisateur n'est pas correctement connecté.
+        catch (UnauthorizedAccessException error)
+        {
+            // On retourne une erreur HTTP 403 avec un message clair.
+            return StatusCode(
+                403,
+                new
+                {
+                    // On retourne le message de l'erreur.
+                    message = error.Message
+                }
+            );
+        }
+    }
+
     // Méthode qui récupère l'identifiant de l'utilisateur connecté.
     private int GetCurrentUserId()
     {

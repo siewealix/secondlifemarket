@@ -7,6 +7,9 @@ import LoginForm from "../../components/forms/LoginForm.jsx";
 // On importe useLocation pour récupérer un message après redirection.
 import { useLocation } from "react-router-dom";
 
+// On importe le bouton de retour.
+import BackButton from "../../components/ui/BackButton.jsx";
+
 // On crée la page de connexion.
 function LoginPage() {
   // On récupère les informations de navigation.
@@ -22,6 +25,9 @@ function LoginPage() {
       title="Connexion"
       subtitle="Accédez à votre espace pour acheter, vendre et gérer vos annonces."
     >
+      {/* On affiche le bouton permettant de retourner à l'accueil. */}
+      <BackButton />
+
       {/* On affiche le formulaire de connexion. */}
       <LoginForm redirectedMessage={redirectedMessage} />
     </AuthLayout>

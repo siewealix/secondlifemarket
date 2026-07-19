@@ -216,11 +216,6 @@ function LoginForm({ redirectedMessage = "" }) {
       {/* On affiche une aide si le bouton est désactivé. */}
       {!canSubmit && <p className="auth-help">Saisissez une adresse email valide et un mot de passe correct.</p>}
 
-      {/* On affiche les comptes de test. */}
-      <p className="auth-help">
-        Test membre : <strong>alix@test.com</strong> avec <strong>Alix@12345678</strong>
-      </p>
-
       {/* On affiche le lien vers l'inscription. */}
       <p className="auth-switch">
         Vous n’avez pas encore de compte ? <Link to="/inscription">Créer un compte</Link>

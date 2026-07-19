@@ -7,6 +7,9 @@ import { useState } from "react";
 // On importe la navbar.
 import Navbar from "../../components/layout/Navbar.jsx";
 
+// On importe le menu latéral administrateur.
+import AdminSidebar from "../../components/layout/AdminSidebar.jsx";
+
 // On importe le hook d'authentification.
 import useAuth from "../../hooks/useAuth.js";
 
@@ -157,7 +160,9 @@ function ManageCategoriesPage() {
     // On bloque si le formulaire est invalide.
     if (!isFormValid()) {
       // On affiche une erreur simple.
-      setError("Veuillez remplir le nom, la description et l'icône.");
+      setError(
+        "Veuillez remplir le nom, la description et l'icône."
+      );
 
       // On arrête la fonction.
       return;
@@ -186,13 +191,20 @@ function ManageCategoriesPage() {
       // On vérifie si on modifie une catégorie.
       if (editingId) {
         // On appelle la modification.
-        await updateCategoryRequest(editingId, categoryData, accessToken);
+        await updateCategoryRequest(
+          editingId,
+          categoryData,
+          accessToken
+        );
 
         // On affiche un succès.
         setSuccess("Catégorie modifiée avec succès.");
       } else {
         // On appelle la création.
-        await createCategoryRequest(categoryData, accessToken);
+        await createCategoryRequest(
+          categoryData,
+          accessToken
+        );
 
         // On affiche un succès.
         setSuccess("Catégorie créée avec succès.");
@@ -235,10 +247,10 @@ function ManageCategoriesPage() {
       estActive: category.estActive,
     });
 
-    // On vide les messages.
+    // On vide le message d'erreur.
     setError("");
 
-    // On vide les messages de succès.
+    // On vide le message de succès.
     setSuccess("");
   }
 
@@ -260,10 +272,14 @@ function ManageCategoriesPage() {
   // On désactive une catégorie.
   async function handleDelete(categoryId) {
     // On demande une confirmation simple.
-    const confirmed = window.confirm("Voulez-vous vraiment désactiver cette catégorie ?");
+    const confirmed = window.confirm(
+      "Voulez-vous vraiment désactiver cette catégorie ?"
+    );
 
-    // On arrête si l'admin refuse.
-    if (!confirmed) return;
+    // On arrête si l'administrateur refuse.
+    if (!confirmed) {
+      return;
+    }
 
     // On vide l'erreur.
     setError("");
@@ -271,10 +287,13 @@ function ManageCategoriesPage() {
     // On vide le succès.
     setSuccess("");
 
-    // On essaie de désactiver.
+    // On essaie de désactiver la catégorie.
     try {
       // On appelle l'API DELETE.
-      await deleteCategoryRequest(categoryId, accessToken);
+      await deleteCategoryRequest(
+        categoryId,
+        accessToken
+      );
 
       // On affiche un message.
       setSuccess("Catégorie désactivée avec succès.");
@@ -296,202 +315,273 @@ function ManageCategoriesPage() {
 
       {/* On crée le contenu principal. */}
       <main className="admin-page">
-        {/* On crée l'en-tête de page. */}
-        <section className="admin-page-header">
-          {/* On affiche le titre. */}
-          <h1>Gestion des catégories</h1>
+        {/* On organise la sidebar et le contenu côte à côte. */}
+        <div className="admin-page-layout">
+          {/* On affiche le menu latéral administrateur. */}
+          <AdminSidebar />
 
-          {/* On affiche la description. */}
-          <p>Ajoutez, modifiez ou désactivez les catégories utilisées pour les annonces.</p>
-        </section>
+          {/* On regroupe le contenu de la page. */}
+          <section className="admin-page-content">
+            {/* On crée l'en-tête de page. */}
+            <section className="admin-page-header">
+              {/* On affiche le titre. */}
+              <h1>Gestion des catégories</h1>
 
-        {/* On affiche les erreurs. */}
-        {error && (
-          // Message d'erreur accessible.
-          <p className="auth-server-error" role="alert">
-            {/* Texte de l'erreur. */}
-            {error}
-          </p>
-        )}
+              {/* On affiche la description. */}
+              <p>
+                Ajoutez, modifiez ou désactivez les
+                catégories utilisées pour les annonces.
+              </p>
+            </section>
 
-        {/* On affiche les succès. */}
-        {success && (
-          // Message de succès accessible.
-          <p className="admin-success" role="status">
-            {/* Texte du succès. */}
-            {success}
-          </p>
-        )}
-
-        {/* On crée la grille de la page admin. */}
-        <section className="admin-grid">
-          {/* On crée le formulaire. */}
-          <form className="admin-card" onSubmit={handleSubmit}>
-            {/* On affiche le titre du formulaire. */}
-            <h2>{editingId ? "Modifier une catégorie" : "Ajouter une catégorie"}</h2>
-
-            {/* Champ nom. */}
-            <div className="admin-field">
-              {/* Label du nom. */}
-              <label htmlFor="category-name">Nom *</label>
-
-              {/* Input du nom. */}
-              <input
-                id="category-name"
-                name="nom"
-                value={form.nom}
-                onChange={handleChange}
-                placeholder="Ex : Meubles"
-                required
-              />
-            </div>
-
-            {/* Champ description. */}
-            <div className="admin-field">
-              {/* Label description. */}
-              <label htmlFor="category-description">Description *</label>
-
-              {/* Textarea description. */}
-              <textarea
-                id="category-description"
-                name="description"
-                value={form.description}
-                onChange={handleChange}
-                placeholder="Ex : Tables, chaises, armoires..."
-                required
-              />
-            </div>
-
-            {/* Champ icône. */}
-            <div className="admin-field">
-              {/* Label icône. */}
-              <label htmlFor="category-icon">Icône *</label>
-
-              {/* Input icône. */}
-              <input
-                id="category-icon"
-                name="icone"
-                value={form.icone}
-                onChange={handleChange}
-                placeholder="Ex : 🪑"
-                required
-              />
-            </div>
-
-            {/* Champ actif. */}
-            <label className="admin-checkbox">
-              {/* Checkbox actif. */}
-              <input
-                type="checkbox"
-                checked={form.estActive}
-                onChange={handleStatusChange}
-              />
-
-              {/* Texte du statut. */}
-              <span>Catégorie active</span>
-            </label>
-
-            {/* Boutons du formulaire. */}
-            <div className="admin-actions">
-              {/* Bouton principal. */}
-              <button className="btn btn-primary" type="submit" disabled={saving}>
-                {/* Texte selon l'état. */}
-                {saving ? "Enregistrement..." : editingId ? "Modifier" : "Ajouter"}
-              </button>
-
-              {/* Bouton annuler visible en modification. */}
-              {editingId && (
-                // Bouton pour annuler.
-                <button className="btn btn-outline" type="button" onClick={handleCancelEdit}>
-                  Annuler
-                </button>
-              )}
-            </div>
-          </form>
-
-          {/* On crée la liste des catégories. */}
-          <div className="admin-card">
-            {/* Titre de la liste. */}
-            <h2>Liste des catégories</h2>
-
-            {/* Message de chargement. */}
-            {loading && <p className="section-loading">Chargement...</p>}
-
-            {/* Message si aucune catégorie. */}
-            {!loading && categories.length === 0 && (
-              <p className="section-empty">Aucune catégorie disponible.</p>
+            {/* On affiche les erreurs. */}
+            {error && (
+              // Message d'erreur accessible.
+              <p
+                className="auth-server-error"
+                role="alert"
+              >
+                {/* Texte de l'erreur. */}
+                {error}
+              </p>
             )}
 
-            {/* Tableau des catégories. */}
-            {!loading && categories.length > 0 && (
-              <div className="admin-table-wrapper">
-                {/* Tableau. */}
-                <table className="admin-table">
-                  {/* En-tête du tableau. */}
-                  <thead>
-                    {/* Ligne d'en-tête. */}
-                    <tr>
-                      {/* Colonne icône. */}
-                      <th>Icône</th>
+            {/* On affiche les succès. */}
+            {success && (
+              // Message de succès accessible.
+              <p
+                className="admin-success"
+                role="status"
+              >
+                {/* Texte du succès. */}
+                {success}
+              </p>
+            )}
 
-                      {/* Colonne nom. */}
-                      <th>Nom</th>
+            {/* On crée la grille de la page admin. */}
+            <section className="admin-grid">
+              {/* On crée le formulaire. */}
+              <form
+                className="admin-card"
+                onSubmit={handleSubmit}
+              >
+                {/* On affiche le titre du formulaire. */}
+                <h2>
+                  {editingId
+                    ? "Modifier une catégorie"
+                    : "Ajouter une catégorie"}
+                </h2>
 
-                      {/* Colonne statut. */}
-                      <th>Statut</th>
+                {/* On crée le champ du nom. */}
+                <div className="admin-field">
+                  {/* On associe le texte au champ. */}
+                  <label htmlFor="category-name">
+                    Nom *
+                  </label>
 
-                      {/* Colonne actions. */}
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
+                  {/* On crée le champ du nom. */}
+                  <input
+                    id="category-name"
+                    name="nom"
+                    value={form.nom}
+                    onChange={handleChange}
+                    placeholder="Ex : Meubles"
+                    required
+                  />
+                </div>
 
-                  {/* Corps du tableau. */}
-                  <tbody>
-                    {/* On parcourt les catégories. */}
-                    {categories.map((category) => (
-                      // Ligne d'une catégorie.
-                      <tr key={category.id}>
-                        {/* Icône. */}
-                        <td>{category.icone}</td>
+                {/* On crée le champ de la description. */}
+                <div className="admin-field">
+                  {/* On associe le texte au champ. */}
+                  <label htmlFor="category-description">
+                    Description *
+                  </label>
 
-                        {/* Nom et description. */}
-                        <td>
-                          {/* Nom. */}
-                          <strong>{category.nom}</strong>
+                  {/* On crée la zone de description. */}
+                  <textarea
+                    id="category-description"
+                    name="description"
+                    value={form.description}
+                    onChange={handleChange}
+                    placeholder="Ex : Tables, chaises, armoires..."
+                    required
+                  />
+                </div>
 
-                          {/* Description. */}
-                          <p>{category.description}</p>
-                        </td>
+                {/* On crée le champ de l'icône. */}
+                <div className="admin-field">
+                  {/* On associe le texte au champ. */}
+                  <label htmlFor="category-icon">
+                    Icône *
+                  </label>
 
-                        {/* Statut. */}
-                        <td>
-                          {/* Badge statut. */}
-                          <span className={category.estActive ? "badge-active" : "badge-inactive"}>
-                            {/* Texte statut. */}
-                            {category.estActive ? "Active" : "Inactive"}
-                          </span>
-                        </td>
+                  {/* On crée le champ de l'icône. */}
+                  <input
+                    id="category-icon"
+                    name="icone"
+                    value={form.icone}
+                    onChange={handleChange}
+                    placeholder="Ex : 🪑"
+                    required
+                  />
+                </div>
 
-                        {/* Actions. */}
-                        <td>
-                          {/* Bouton modifier. */}
-                          <button type="button" className="table-link" onClick={() => handleEdit(category)}>
-                            Modifier
-                          </button>
+                {/* On crée le champ du statut actif. */}
+                <label className="admin-checkbox">
+                  {/* On crée la case à cocher. */}
+                  <input
+                    type="checkbox"
+                    checked={form.estActive}
+                    onChange={handleStatusChange}
+                  />
 
-                          {/* Bouton désactiver. */}
-                          <button type="button" className="table-danger" onClick={() => handleDelete(category.id)}>
-                            Désactiver
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  {/* On affiche le texte du statut. */}
+                  <span>Catégorie active</span>
+                </label>
+
+                {/* On affiche les boutons du formulaire. */}
+                <div className="admin-actions">
+                  {/* On affiche le bouton principal. */}
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    disabled={saving}
+                  >
+                    {/* On adapte le texte du bouton. */}
+                    {saving
+                      ? "Enregistrement..."
+                      : editingId
+                        ? "Modifier"
+                        : "Ajouter"}
+                  </button>
+
+                  {/* On affiche Annuler en mode modification. */}
+                  {editingId && (
+                    <button
+                      className="btn btn-outline"
+                      type="button"
+                      onClick={handleCancelEdit}
+                    >
+                      Annuler
+                    </button>
+                  )}
+                </div>
+              </form>
+
+              {/* On crée la carte de la liste. */}
+              <div className="admin-card">
+                {/* On affiche le titre de la liste. */}
+                <h2>Liste des catégories</h2>
+
+                {/* On affiche le chargement. */}
+                {loading && (
+                  <p className="section-loading">
+                    Chargement...
+                  </p>
+                )}
+
+                {/* On affiche le message si la liste est vide. */}
+                {!loading && categories.length === 0 && (
+                  <p className="section-empty">
+                    Aucune catégorie disponible.
+                  </p>
+                )}
+
+                {/* On affiche le tableau. */}
+                {!loading && categories.length > 0 && (
+                  <div className="admin-table-wrapper">
+                    {/* On crée le tableau. */}
+                    <table className="admin-table">
+                      {/* On crée l'en-tête du tableau. */}
+                      <thead>
+                        <tr>
+                          {/* Colonne icône. */}
+                          <th>Icône</th>
+
+                          {/* Colonne nom. */}
+                          <th>Nom</th>
+
+                          {/* Colonne statut. */}
+                          <th>Statut</th>
+
+                          {/* Colonne actions. */}
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+
+                      {/* On crée le corps du tableau. */}
+                      <tbody>
+                        {/* On parcourt les catégories. */}
+                        {categories.map((category) => (
+                          // On crée une ligne par catégorie.
+                          <tr key={category.id}>
+                            {/* On affiche l'icône. */}
+                            <td>{category.icone}</td>
+
+                            {/* On affiche le nom et la description. */}
+                            <td>
+                              {/* On affiche le nom. */}
+                              <strong>
+                                {category.nom}
+                              </strong>
+
+                              {/* On affiche la description. */}
+                              <p>
+                                {category.description}
+                              </p>
+                            </td>
+
+                            {/* On affiche le statut. */}
+                            <td>
+                              <span
+                                className={
+                                  category.estActive
+                                    ? "badge-active"
+                                    : "badge-inactive"
+                                }
+                              >
+                                {category.estActive
+                                  ? "Active"
+                                  : "Inactive"}
+                              </span>
+                            </td>
+
+                            {/* On affiche les actions. */}
+                            <td>
+                              {/* Bouton de modification. */}
+                              <button
+                                type="button"
+                                className="table-link"
+                                onClick={() =>
+                                  handleEdit(category)
+                                }
+                              >
+                                Modifier
+                              </button>
+
+                              {/* Bouton de désactivation. */}
+                              <button
+                                type="button"
+                                className="table-danger"
+                                onClick={() =>
+                                  handleDelete(
+                                    category.id
+                                  )
+                                }
+                              >
+                                Désactiver
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </section>
+            </section>
+          </section>
+        </div>
       </main>
     </>
   );

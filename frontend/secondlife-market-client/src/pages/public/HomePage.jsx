@@ -18,24 +18,27 @@ import HowItWorksSection from "../../components/sections/HowItWorksSection.jsx";
 
 // On crée la page d'accueil.
 function HomePage() {
-  // On retourne toutes les sections de la page d'accueil.
+  // On retourne toutes les parties de la page.
   return (
-    // On utilise un fragment pour regrouper les éléments.
+    // On regroupe les éléments sans ajouter de balise inutile.
     <>
       {/* On affiche la barre de navigation. */}
       <Navbar />
 
-      {/* On affiche la grande section d'accueil. */}
-      <HeroSection />
+      {/* On regroupe les sections principales dans la balise main. */}
+      <main className="home-page">
+        {/* On affiche la grande section d'accueil. */}
+        <HeroSection />
 
-      {/* On affiche les catégories populaires. */}
-      <CategoriesSection />
+        {/* On affiche les catégories populaires. */}
+        <CategoriesSection />
 
-      {/* On affiche quelques annonces récentes. */}
-      <RecentAnnoncesSection />
+        {/* On affiche les annonces récentes. */}
+        <RecentAnnoncesSection />
 
-      {/* On affiche l'explication du fonctionnement. */}
-      <HowItWorksSection />
+        {/* On explique le fonctionnement de la plateforme. */}
+        <HowItWorksSection />
+      </main>
 
       {/* On affiche le pied de page. */}
       <Footer />

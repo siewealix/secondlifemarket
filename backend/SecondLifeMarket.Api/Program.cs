@@ -28,8 +28,18 @@ using SecondLifeMarket.Api.Hubs;
 
 using SecondLifeMarket.Api.Middlewares;
 
+// On importe notre classe de configuration des e-mails.
+using SecondLifeMarket.Api.Settings;
+
 // On crée le builder de l'application.
 var builder = WebApplication.CreateBuilder(args);
+
+// On récupère la section "EmailSettings"
+// provenant de appsettings.json et de user-secrets.
+builder.Services.Configure<EmailSettings>(
+    // On sélectionne la section appelée "EmailSettings".
+    builder.Configuration.GetSection("EmailSettings")
+);
 
 // On ajoute les contrôleurs.
 builder.Services.AddControllers();
@@ -129,6 +139,10 @@ builder.Services.AddScoped<IConversationService, ConversationService>();
 
 // On ajoute le service des messages.
 builder.Services.AddScoped<IMessageService, MessageService>();
+
+// On ajoute le service qui enverra
+// les e-mails du formulaire de contact.
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // On ajoute SignalR pour la messagerie instantanée.
 builder.Services.AddSignalR();

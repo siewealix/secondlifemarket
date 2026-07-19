@@ -69,6 +69,21 @@ import SellerSubscriptionPage from "../pages/seller/SellerSubscriptionPage.jsx";
 
 import ManageSubscriptionsPage from "../pages/admin/ManageSubscriptionsPage.jsx";
 
+// On importe la page de contact.
+import ContactPage from "../pages/public/ContactPage.jsx";
+
+// On importe la page des conditions générales d’utilisation.
+import CguPage from "../pages/public/CguPage.jsx";
+
+// On importe la page de confidentialité.
+import ConfidentialitePage from "../pages/public/ConfidentialitePage.jsx";
+
+// On importe la page d’accessibilité.
+import AccessibilitePage from "../pages/public/AccessibilitePage.jsx";
+
+// On importe la page qui affiche toutes les conversations.
+import ConversationsPage from "../pages/messages/ConversationsPage.jsx";
+
 // On crée le composant des routes.
 function AppRoutes() {
   // On retourne toutes les routes de l'application.
@@ -86,6 +101,24 @@ function AppRoutes() {
 
       {/* On définit la route publique de la liste des annonces. */}
       <Route path="/annonces" element={<AnnoncesPage />} />
+
+      {/* On définit la route publique de la page de contact. */}
+      <Route path="/contact" element={<ContactPage />} />
+
+      {/* On crée la route de la page des CGU. */}
+      <Route path="/cgu" element={<CguPage />} />
+
+      {/* On crée la route de la politique de confidentialité. */}
+      <Route
+        path="/confidentialite"
+        element={<ConfidentialitePage />}
+      />
+
+      {/* On crée la route de la page d’accessibilité. */}
+      <Route
+        path="/accessibilite"
+        element={<AccessibilitePage />}
+      />
 
       {/* On définit la route publique du détail d'une annonce. */}
       <Route path="/annonces/:id" element={<AnnonceDetailsPage />} />
@@ -121,6 +154,12 @@ function AppRoutes() {
 
         {/* Page de conversation liée à une demande d'achat. */}
         <Route path="/messages/demande/:demandeAchatId" element={<ConversationPage />} />
+
+        {/* Cette route permet d'afficher toutes les conversations. */}
+        <Route path="/messagerie"
+          // Élément affiché lorsque l'utilisateur visite cette adresse.
+          element={ <ConversationsPage />}
+        />
       </Route>
 
       {/* On protège toutes les routes administrateur. */}
